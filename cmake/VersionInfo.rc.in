@@ -1,0 +1,41 @@
+#define VER_FILEVERSION             @IRIS_PLUGIN_VERSION_MAJOR@,@IRIS_PLUGIN_VERSION_MINOR@,@IRIS_PLUGIN_VERSION_PATCH@,@IRIS_PLUGIN_VERSION_TWEAK@
+#define VER_FILEVERSION_STR         "@IRIS_PLUGIN_VERSION_MAJOR@.@IRIS_PLUGIN_VERSION_MINOR@.@IRIS_PLUGIN_VERSION_PATCH@.@IRIS_PLUGIN_VERSION_TWEAK@\0"
+
+#define VER_PRODUCTVERSION          @IRIS_PLUGIN_VERSION_MAJOR@,@IRIS_PLUGIN_VERSION_MINOR@,@IRIS_PLUGIN_VERSION_PATCH@,@IRIS_PLUGIN_VERSION_TWEAK@
+#define VER_PRODUCTVERSION_STR      "@IRIS_PLUGIN_VERSION_MAJOR@.@IRIS_PLUGIN_VERSION_MINOR@.@IRIS_PLUGIN_VERSION_PATCH@.@IRIS_PLUGIN_VERSION_TWEAK@\0"
+
+// not consider this moment 2021-10-08
+#define FILE_NAME_STR "@LIBRARY_OUTPUT_FULL_NAME@"
+
+1 VERSIONINFO
+FILEVERSION     VER_FILEVERSION
+PRODUCTVERSION  VER_PRODUCTVERSION
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "040904E4"
+        BEGIN
+            VALUE "CompanyName", "Agora.io"
+            VALUE "FileDescription", ""
+            VALUE "FileVersion",      VER_FILEVERSION_STR
+            VALUE "InternalName", FILE_NAME_STR
+            VALUE "LegalCopyright", "Agora.io Copyright (C) 2021"
+            VALUE "OriginalFilename", FILE_NAME_STR
+            VALUE "ProductName", FILE_NAME_STR
+            VALUE "ProductVersion",   VER_PRODUCTVERSION_STR
+        END
+    END
+
+    BLOCK "VarFileInfo"
+    BEGIN
+        /* The following line should only be modified for localized versions.     */
+        /* It consists of any number of WORD,WORD pairs, with each pair           */
+        /* describing a language,codepage combination supported by the file.      */
+        /*                                                                        */
+        /* For example, a file might have values "0x409,1252" indicating that it  */
+        /* supports English language (0x409) in the Windows ANSI codepage (1252). */
+
+        VALUE "Translation", 0x409, 1252
+
+    END
+END
