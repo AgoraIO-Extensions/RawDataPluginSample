@@ -147,6 +147,7 @@ if (APPLE)
             MACOSX_FRAMEWORK_BUNDLE_VERSION "${IRIS_PLUGIN_VERSION}"
             CXX_VISIBILITY_PRESET hidden
             LINK_FLAGS "-Wl -F ${LIBS_DIR} -rpath @loader_path/../../../../Frameworks -rpath @loader_path/../../.."
+            COMPILE_OPTIONS "-g"
             )
     LINK_FRAMEWORK(${LIBS_DIR_ROOT} ${LIBRARY_NAME})
 elseif (WIN32)
