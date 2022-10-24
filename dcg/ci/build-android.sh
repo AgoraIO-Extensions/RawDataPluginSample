@@ -34,7 +34,7 @@ buildALL() {
   sh ./gradlew assemble"$buildType" -P"$sdkType" -Dhttps.proxyHost=10.80.1.174 -Dhttps.proxyPort=1080
   echo "start copy outputs ----------"
   output_dir="$root_path/build/android/ALL_ARCHITECTURE/output/dcg/$buildType"
-  output_name="AgoraRtcWrapper"
+  output_name="VideoObserverPlugin"
   mkdir -p "$output_dir"
   cp app/build/outputs/aar/app-"$buildTypeLower".aar "$output_dir/$output_name.aar"
   cp app/build/intermediates/aar_main_jar/"$buildTypeLower"/classes.jar "$output_dir/$output_name.jar"
