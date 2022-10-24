@@ -4,11 +4,12 @@ set(CMAKE_CXX_STANDARD 14)
 project(iris_plugin)
 set(LIBRARY_NAME iris-plugin)
 set(IRIS_PLUGIN_VERSION_MAJOR 4)
-set(IRIS_PLUGIN_VERSION_MINOR 0)
+set(IRIS_PLUGIN_VERSION_MINOR 1)
 set(IRIS_PLUGIN_VERSION_PATCH 0)
 set(IRIS_PLUGIN_VERSION_TWEAK 0)
 
 if (CMAKE_SYSTEM_NAME STREQUAL "Darwin")
+    set(BUILD_UNITY_BUNDLE TRUE)
     set(IRIS_PLUGIN_PLATFORM "Mac")
 elseif (CMAKE_SYSTEM_NAME STREQUAL "Linux")
     set(IRIS_PLUGIN_PLATFORM "Linux")
@@ -101,7 +102,7 @@ link_directories(${LIBS_DIR})
 
 set(SRC_PATH ${PROJECT_SOURCE_DIR}/VideoObserverPlugin)
 
-file(GLOB IRIS_PLUGIN_OBSERVER_PUBLIC_HEADER "${SRC_PATH}/*.h")      
+file(GLOB IRIS_PLUGIN_OBSERVER_PUBLIC_HEADER "${SRC_PATH}/*.h")
 file(GLOB IRIS_PLUGIN_OBSERVER_PUBLIC_SOURCE "${SRC_PATH}/*.cpp")
 
 if (NOT APPLE)
@@ -138,10 +139,6 @@ target_include_directories(${LIBRARY_NAME} PUBLIC
         )
 
 if (APPLE)
-    set(FRAMEWORKS
-            "-framework Foundation"
-            "-framework AgoraRtcKit"
-            )
     set_target_properties(${LIBRARY_NAME} PROPERTIES
             FRAMEWORK TRUE
             FRAMEWORK_VERSION A
@@ -151,17 +148,9 @@ if (APPLE)
             CXX_VISIBILITY_PRESET hidden
             LINK_FLAGS "-Wl -F ${LIBS_DIR} -rpath @loader_path/../../../../Frameworks -rpath @loader_path/../../.."
             )
-    target_link_libraries(${LIBRARY_NAME}
-            PRIVATE
-            "${FRAMEWORKS}"
-            )
     LINK_FRAMEWORK(${LIBS_DIR_ROOT} ${LIBRARY_NAME})
 elseif (WIN32)
     target_compile_definitions(${LIBRARY_NAME} PRIVATE IRIS_PLUGIN_EXPORT)
-    target_link_libraries(${LIBRARY_NAME}
-            PRIVATE
-            ${LIBS_DIR}/agora_rtc_sdk.dll.lib
-            )
 elseif (ANDROID)
     set_target_properties(${LIBRARY_NAME} PROPERTIES
             ARCHIVE_OUTPUT_DIRECTORY "${OUTPUT_DIR_REAL}"
@@ -172,26 +161,15 @@ elseif (ANDROID)
     find_library(log-lib log)
     target_link_libraries(${LIBRARY_NAME}
             PRIVATE
-            libagora-rtc-sdk.so
             ${log-lib}
             )
 elseif (UNIX)
-    add_library(libagora_rtc_sdk SHARED IMPORTED)
-    set_target_properties(
-            libagora_rtc_sdk PROPERTIES
-            IMPORTED_NO_SONAME 1
-            IMPORTED_LOCATION ${LIBS_DIR}/libagora_rtc_sdk.so
-    )
     set_target_properties(${LIBRARY_NAME} PROPERTIES
             ARCHIVE_OUTPUT_DIRECTORY "${OUTPUT_DIR_REAL}"
             LIBRARY_OUTPUT_DIRECTORY "${OUTPUT_DIR_REAL}"
             RUNTIME_OUTPUT_DIRECTORY "${OUTPUT_DIR_REAL}"
             PDB_OUTPUT_DIRECTORY "${OUTPUT_DIR_REAL}"
             LINK_FLAGS "-Wl,-rpath,./"
-            )
-    target_link_libraries(${LIBRARY_NAME}
-            PRIVATE
-            libagora_rtc_sdk
             )
 endif ()
 
@@ -200,8 +178,7 @@ add_subdirectory(${PROJECT_SOURCE_DIR}/third_party/spdlog spdlog)
 if (BUILD_UNITY_BUNDLE)
     add_library(${LIBRARY_NAME}-unity MODULE
             ${IRIS_PLUGIN_OBSERVER_PUBLIC_HEADER}
-            ${IRIS_PLUGIN_RTC_INTERNAL_HEADER}
-            ${IRIS_PLUGIN_RTC_INTERNAL_SOURCE}
+            ${IRIS_PLUGIN_OBSERVER_PUBLIC_SOURCE}
             )
     set_target_properties(${LIBRARY_NAME}-unity PROPERTIES
             ARCHIVE_OUTPUT_DIRECTORY "${OUTPUT_DIR}"
