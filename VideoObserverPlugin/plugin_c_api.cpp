@@ -1,22 +1,22 @@
 #include "Plugin_c_api.h"
 #include "VideoObserverPlugin.h"
-bool enablePlugin(PluginSamplePtr plugin) {
+bool EnablePlugin(PluginSamplePtr plugin) {
   if (plugin) {
-    return ((VideoObserverPlugin *) plugin)->enablePlugin();
+    return ((VideoObserverPlugin *) plugin)->EnablePlugin();
   } else {
     return false;
   }
 }
 
-bool disablePlugin(PluginSamplePtr plugin) {
+bool DisablePlugin(PluginSamplePtr plugin) {
   if (plugin) {
-    return ((VideoObserverPlugin *) plugin)->disablePlugin();
+    return ((VideoObserverPlugin *) plugin)->DisablePlugin();
   } else {
     return false;
   }
 }
 
-PluginSamplePtr createSampePlugin(void *rtcEnginePtr) {
+PluginSamplePtr CreateSampePlugin(void *rtcEnginePtr) {
   auto *plugin =
       new VideoObserverPlugin((agora::rtc::IRtcEngine *) rtcEnginePtr);
   return (void *) plugin;

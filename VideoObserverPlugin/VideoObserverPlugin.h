@@ -44,10 +44,9 @@ class IRIS_PLUGIN_CPP_API VideoObserverPlugin
   bool getMirrorApplied() override {
     return IVideoFrameObserver::getMirrorApplied();
   }
-  bool enablePlugin();
-  bool disablePlugin();
-  void setRtcEnginePointer(void *enginePtr);
-
+  bool EnablePlugin();
+  bool DisablePlugin();
+ 
  private:
   agora::rtc::IRtcEngine *rtc_engine_ = nullptr;
 };

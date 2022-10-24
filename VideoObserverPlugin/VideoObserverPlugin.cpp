@@ -46,7 +46,7 @@ VideoObserverPlugin::VideoObserverPlugin(agora::rtc::IRtcEngine *rtc_engine)
 
 VideoObserverPlugin::~VideoObserverPlugin() { rtc_engine_ = nullptr; }
 
-bool VideoObserverPlugin::enablePlugin() {
+bool VideoObserverPlugin::EnablePlugin() {
   if (rtc_engine_) {
     agora::media::IMediaEngine *media_engine = nullptr;
     rtc_engine_->queryInterface(agora::rtc::AGORA_IID_MEDIA_ENGINE,
@@ -57,7 +57,7 @@ bool VideoObserverPlugin::enablePlugin() {
   return false;
 }
 
-bool VideoObserverPlugin::disablePlugin() {
+bool VideoObserverPlugin::DisablePlugin() {
   if (rtc_engine_) {
     agora::media::IMediaEngine *media_engine = nullptr;
     rtc_engine_->queryInterface(agora::rtc::AGORA_IID_MEDIA_ENGINE,
@@ -66,10 +66,6 @@ bool VideoObserverPlugin::disablePlugin() {
     return true;
   }
   return false;
-}
-
-void VideoObserverPlugin::setRtcEnginePointer(void *enginePtr) {
-  rtc_engine_ = (agora::rtc::IRtcEngine *) enginePtr;
 }
 
 bool VideoObserverPlugin::onCaptureVideoFrame(
