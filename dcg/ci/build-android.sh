@@ -33,16 +33,21 @@ buildALL() {
   echo "start build aar ----------"
   sh ./gradlew assemble"$buildType" -P"$sdkType" -Dhttps.proxyHost=10.80.1.174 -Dhttps.proxyPort=1080
   echo "start copy outputs ----------"
-  output_dir="$root_path/build/android/ALL_ARCHITECTURE/output/dcg/$buildType"
+  output_dir="$root_path/build/android/ALL_ARCHITECTURE/output/$buildType"
   output_name="VideoObserverPlugin"
   mkdir -p "$output_dir"
   cp app/build/outputs/aar/app-"$buildTypeLower".aar "$output_dir/$output_name.aar"
   cp app/build/intermediates/aar_main_jar/"$buildTypeLower"/classes.jar "$output_dir/$output_name.jar"
-  cp -rp app/.cxx/cmake/"$buildTypeLower"/arm64-v8a/output/dcg/include/ "$output_dir/include/"
-  cp -rp app/.cxx/cmake/"$buildTypeLower"/arm64-v8a/output/dcg/"$buildType"/ "$output_dir/arm64-v8a/"
-  cp -rp app/.cxx/cmake/"$buildTypeLower"/armeabi-v7a/output/dcg/"$buildType"/ "$output_dir/armeabi-v7a/"
-  cp -rp app/.cxx/cmake/"$buildTypeLower"/x86/output/dcg/"$buildType"/ "$output_dir/x86/"
-  cp -rp app/.cxx/cmake/"$buildTypeLower"/x86_64/output/dcg/"$buildType"/ "$output_dir/x86_64/"
+  mkdir -p "$output_dir/include"
+  cp -rp app/.cxx/cmake/"$buildTypeLower"/arm64-v8a/output/include/ "$output_dir/include/"
+  mkdir -p "$output_dir/arm64-v8a"
+  cp -rp app/.cxx/cmake/"$buildTypeLower"/arm64-v8a/output/"$buildType"/ "$output_dir/arm64-v8a/"
+  mkdir -p "$output_dir/armeabi-v7a"
+  cp -rp app/.cxx/cmake/"$buildTypeLower"/armeabi-v7a/output/"$buildType"/ "$output_dir/armeabi-v7a/"
+  mkdir -p "$output_dir/x86"
+  cp -rp app/.cxx/cmake/"$buildTypeLower"/x86/output/"$buildType"/ "$output_dir/x86/"
+  mkdir -p "$output_dir/x86_64"
+  cp -rp app/.cxx/cmake/"$buildTypeLower"/x86_64/output/"$buildType"/ "$output_dir/x86_64/"
 }
 
 if [ "$1" = "build" ]; then

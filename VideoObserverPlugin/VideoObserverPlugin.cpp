@@ -3,6 +3,12 @@
 #include "spdlog/sinks/stdout_sinks.h"
 #include "spdlog/spdlog.h"
 
+#if defined(__ANDROID__)
+
+#include "spdlog/sinks/android_sink.h"
+
+#endif
+
 #define IRIS_LOG_PLUGIN_D(...)                                                 \
   SPDLOG_LOGGER_CALL(spdlog::default_logger(), spdlog::level::debug,           \
                      __VA_ARGS__)
