@@ -70,7 +70,11 @@ bool VideoObserverPlugin::DisablePlugin() {
 
 bool VideoObserverPlugin::onCaptureVideoFrame(
     agora::media::base::VideoFrame &videoFrame) {
-  IRIS_LOG_PLUGIN_D("onCaptureVideoFrame");
+
+  int length = videoFrame.uStride * videoFrame.height * 0.5;
+  memset(videoFrame.uBuffer, 128, length);
+  memset(videoFrame.vBuffer, 128, length);
+
   return true;
 }
 
@@ -139,7 +143,7 @@ agora::media::IVideoFrameObserver::VIDEO_FRAME_PROCESS_MODE
 VideoObserverPlugin::getVideoFrameProcessMode() {
   IRIS_LOG_PLUGIN_D("getVideoFrameProcessMode");
   return agora::media::IVideoFrameObserver::VIDEO_FRAME_PROCESS_MODE::
-      PROCESS_MODE_READ_ONLY;
+      PROCESS_MODE_READ_WRITE;
 }
 
 agora::media::base::VIDEO_PIXEL_FORMAT
