@@ -52,6 +52,7 @@ bool VideoObserverPlugin::EnablePlugin() {
     rtc_engine_->queryInterface(agora::rtc::AGORA_IID_MEDIA_ENGINE,
                                 (void **) &media_engine);
     media_engine->registerVideoFrameObserver(this);
+    media_engine->registerAudioFrameObserver(this);
     return true;
   }
   return false;
@@ -63,6 +64,7 @@ bool VideoObserverPlugin::DisablePlugin() {
     rtc_engine_->queryInterface(agora::rtc::AGORA_IID_MEDIA_ENGINE,
                                 (void **) &media_engine);
     media_engine->registerVideoFrameObserver(nullptr);
+    media_engine->registerAudioFrameObserver(nullptr);
     return true;
   }
   return false;
@@ -71,6 +73,7 @@ bool VideoObserverPlugin::DisablePlugin() {
 bool VideoObserverPlugin::onCaptureVideoFrame(
     agora::media::base::VideoFrame &videoFrame) {
 
+  //process videoFrame to gray
   int length = videoFrame.uStride * videoFrame.height * 0.5;
   memset(videoFrame.uBuffer, 128, length);
   memset(videoFrame.vBuffer, 128, length);
@@ -152,4 +155,87 @@ VideoObserverPlugin::getVideoFormatPreference() {
   agora::media::base::VIDEO_PIXEL_FORMAT format =
       agora::media::base::VIDEO_PIXEL_I420;
   return format;
+}
+
+//audio
+bool VideoObserverPlugin::onRecordAudioFrame(const char *channelId,
+                                             AudioFrame &audioFrame) {
+  if (audioFrame.buffer != nullptr) {
+    int length = audioFrame.channels * audioFrame.bytesPerSample
+        * audioFrame.samplesPerChannel;
+
+    //you can process audioFrame in there.
+    char *buffer = (char *) audioFrame.buffer;
+    for (int i = 0; i < length; i++) { buffer[i] = 0; }
+  }
+
+  return true;
+}
+
+bool VideoObserverPlugin::onPlaybackAudioFrame(const char *channelId,
+                                               AudioFrame &audioFrame) {
+  return true;
+}
+
+bool VideoObserverPlugin::onMixedAudioFrame(const char *channelId,
+                                            AudioFrame &audioFrame) {
+  return true;
+}
+
+bool VideoObserverPlugin::onEarMonitoringAudioFrame(AudioFrame &audioFrame) {
+  return true;
+}
+
+bool VideoObserverPlugin::onPlaybackAudioFrameBeforeMixing(
+    const char *channelId, agora::media::base::user_id_t userId,
+    AudioFrame &audioFrame) {
+  return true;
+}
+
+int VideoObserverPlugin::getObservedAudioFramePosition() {}
+
+agora::media::IAudioFrameObserverBase::AudioParams
+VideoObserverPlugin::getPlaybackAudioParams() {
+  agora::media::IAudioFrameObserver::AudioParams params;
+  params.channels = 2;
+  params.samples_per_call = 960;
+  params.mode = agora::rtc::RAW_AUDIO_FRAME_OP_MODE_TYPE::
+      RAW_AUDIO_FRAME_OP_MODE_READ_ONLY;
+  params.sample_rate = 48000;
+  return params;
+}
+
+agora::media::IAudioFrameObserverBase::AudioParams
+VideoObserverPlugin::getRecordAudioParams() {
+  agora::media::IAudioFrameObserver::AudioParams params;
+  params.channels = 2;
+  params.samples_per_call = 960;
+  params.mode = agora::rtc::RAW_AUDIO_FRAME_OP_MODE_TYPE::
+      RAW_AUDIO_FRAME_OP_MODE_READ_WRITE;
+  params.sample_rate = 48000;
+  return params;
+}
+agora::media::IAudioFrameObserverBase::AudioParams
+VideoObserverPlugin::getMixedAudioParams() {
+  agora::media::IAudioFrameObserver::AudioParams params;
+  params.channels = 2;
+  params.samples_per_call = 960;
+  params.mode = agora::rtc::RAW_AUDIO_FRAME_OP_MODE_TYPE::
+      RAW_AUDIO_FRAME_OP_MODE_READ_ONLY;
+  params.sample_rate = 48000;
+  return params;
+}
+agora::media::IAudioFrameObserverBase::AudioParams
+VideoObserverPlugin::getEarMonitoringAudioParams() {
+  agora::media::IAudioFrameObserver::AudioParams params;
+  params.channels = 2;
+  params.samples_per_call = 960;
+  params.mode = agora::rtc::RAW_AUDIO_FRAME_OP_MODE_TYPE::
+      RAW_AUDIO_FRAME_OP_MODE_READ_ONLY;
+  params.sample_rate = 48000;
+  return params;
+}
+bool VideoObserverPlugin::onPlaybackAudioFrameBeforeMixing(
+    const char *channelId, agora::rtc::uid_t uid, AudioFrame &audioFrame) {
+  return true;
 }

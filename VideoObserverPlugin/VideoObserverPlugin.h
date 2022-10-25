@@ -5,10 +5,13 @@
 #include <IAgoraRtcEngine.h>
 
 class IRIS_PLUGIN_CPP_API VideoObserverPlugin
-    : public agora::media::IVideoFrameObserver {
+    : public agora::media::IVideoFrameObserver,
+      public agora::media::IAudioFrameObserver {
  public:
   VideoObserverPlugin(agora::rtc::IRtcEngine *rtc_engine);
   ~VideoObserverPlugin();
+
+  //video
   bool onCaptureVideoFrame(VideoFrame &videoFrame) override;
 
   bool onSecondaryCameraCaptureVideoFrame(VideoFrame &videoFrame) override;
@@ -44,6 +47,38 @@ class IRIS_PLUGIN_CPP_API VideoObserverPlugin
   bool getMirrorApplied() override {
     return IVideoFrameObserver::getMirrorApplied();
   }
+
+  //audio
+  virtual bool onRecordAudioFrame(const char *channelId,
+                                  AudioFrame &audioFrame) override;
+
+  virtual bool onPlaybackAudioFrame(const char *channelId,
+                                    AudioFrame &audioFrame) override;
+
+  virtual bool onMixedAudioFrame(const char *channelId,
+                                 AudioFrame &audioFrame) override;
+
+  virtual bool onEarMonitoringAudioFrame(AudioFrame &audioFrame) override;
+
+  virtual bool
+  onPlaybackAudioFrameBeforeMixing(const char *channelId,
+                                   agora::media::base::user_id_t userId,
+                                   AudioFrame &audioFrame) override;
+
+  virtual int getObservedAudioFramePosition() override;
+  virtual agora::media::IAudioFrameObserverBase::AudioParams
+  getPlaybackAudioParams() override;
+
+  virtual agora::media::IAudioFrameObserverBase::AudioParams
+  getRecordAudioParams() override;
+  virtual agora::media::IAudioFrameObserverBase::AudioParams
+  getMixedAudioParams() override;
+  virtual agora::media::IAudioFrameObserverBase::AudioParams
+  getEarMonitoringAudioParams() override;
+  virtual bool
+  onPlaybackAudioFrameBeforeMixing(const char *channelId, agora::rtc::uid_t uid,
+                                   AudioFrame &audioFrame) override;
+
   bool EnablePlugin();
   bool DisablePlugin();
  
