@@ -1,0 +1,17 @@
+name: 'NativePluginApiBinding'
+description: 'Bindings to IrisApiEngine'
+
+output: 'lib/src/native_plugin_api_bindings.dart'
+
+headers:
+  entry-points:
+    - '../../../VideoObserverPlugin/plugin_c_api.h'
+  include-directives:
+    - '../../../VideoObserverPlugin/plugin_c_api.h'
+    - '../../../VideoObserverPlugin/iris_plugin_platform.h'
+
+preamble: |
+  // ignore_for_file: camel_case_types, non_constant_identifier_names
+
+llvm-path:
+  - '/usr/local/opt/llvm'
