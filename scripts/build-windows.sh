@@ -21,5 +21,5 @@ cmake \
 cmake --build . --config "$BUILD_TYPE"
 popd
 
-ls ${IRIS_EVENT_DIR}/build/windows/x64/$BUILD_TYPE
-cp -RP "${IRIS_EVENT_DIR}/build/windows/x64/$BUILD_TYPE/VideoObserverPlugin.dll" "${OUT_DIR}/VideoObserverPlugin.dll"
+ls ${IRIS_EVENT_DIR}/build/windows/x64/output/$BUILD_TYPE
+cp -RP "${IRIS_EVENT_DIR}/build/windows/x64/output/$BUILD_TYPE/AgoraRawDataPlugin.dll" "${OUT_DIR}/AgoraRawDataPlugin.dll"
