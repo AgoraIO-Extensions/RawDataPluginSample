@@ -6,11 +6,11 @@ public class AgoraRawDataPlugin {
   private long handle;
 
   public AgoraRawDataPlugin(long nativeHandle) {
-    handle = createPlugin(nativeHandle);
+    handle = createSamplePlugin(nativeHandle);
   }
 
   public void destroy() {
-    destroyPlugin(this.handle);
+    destroySamplePlugin(this.handle);
     this.handle = 0;
   }
 
@@ -18,9 +18,9 @@ public class AgoraRawDataPlugin {
 
   public boolean disablePlugin() { return disablePlugin(this.handle); }
 
-  private native long createPlugin(long nativeHandle);
+  private native long createSamplePlugin(long nativeHandle);
 
-  private native void destroyPlugin(long handle);
+  private native void destroySamplePlugin(long handle);
 
   private native boolean enablePlugin(long handle);
 
