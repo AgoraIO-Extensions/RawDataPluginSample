@@ -67,7 +67,7 @@ target_include_directories(${LIBRARY_NAME} PUBLIC
 
 if (APPLE)
     set_target_properties(${LIBRARY_NAME} PROPERTIES
-            frameworks TRUE
+            FRAMEWORK TRUE
             FRAMEWORK_VERSION A
             MACOSX_FRAMEWORK_IDENTIFIER io.agora.rtc.plugin
             MACOSX_FRAMEWORK_SHORT_VERSION_STRING "${PLUGIN_VERSION}"
