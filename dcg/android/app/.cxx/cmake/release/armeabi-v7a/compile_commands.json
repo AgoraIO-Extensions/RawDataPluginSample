@@ -1,0 +1,55 @@
+[
+{
+  "directory": "/Users/fenglang/codes/aw/RawDataPluginSample/dcg/android/app/.cxx/cmake/release/armeabi-v7a",
+  "command": "/Users/fenglang/Library/Android/sdk/ndk/21.1.6352462/toolchains/llvm/prebuilt/darwin-x86_64/bin/clang++ --target=armv7-none-linux-androideabi16 --gcc-toolchain=/Users/fenglang/Library/Android/sdk/ndk/21.1.6352462/toolchains/llvm/prebuilt/darwin-x86_64 --sysroot=/Users/fenglang/Library/Android/sdk/ndk/21.1.6352462/toolchains/llvm/prebuilt/darwin-x86_64/sysroot  -Diris_plugin_EXPORTS -I../../../../../../../third_party/agora/dcg/libs/Agora_Native_SDK_for_Android_FULL/rtc/sdk/high_level_api/include -I../../../../../../../third_party/spdlog/include  -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -march=armv7-a -mthumb -Wformat -Werror=format-security   -Oz -DNDEBUG  -fPIC   -std=gnu++14 -o CMakeFiles/iris-plugin.dir/VideoObserverPlugin/VideoObserverPlugin.cpp.o -c /Users/fenglang/codes/aw/RawDataPluginSample/VideoObserverPlugin/VideoObserverPlugin.cpp",
+  "file": "/Users/fenglang/codes/aw/RawDataPluginSample/VideoObserverPlugin/VideoObserverPlugin.cpp"
+},
+
+{
+  "directory": "/Users/fenglang/codes/aw/RawDataPluginSample/dcg/android/app/.cxx/cmake/release/armeabi-v7a",
+  "command": "/Users/fenglang/Library/Android/sdk/ndk/21.1.6352462/toolchains/llvm/prebuilt/darwin-x86_64/bin/clang++ --target=armv7-none-linux-androideabi16 --gcc-toolchain=/Users/fenglang/Library/Android/sdk/ndk/21.1.6352462/toolchains/llvm/prebuilt/darwin-x86_64 --sysroot=/Users/fenglang/Library/Android/sdk/ndk/21.1.6352462/toolchains/llvm/prebuilt/darwin-x86_64/sysroot  -Diris_plugin_EXPORTS -I../../../../../../../third_party/agora/dcg/libs/Agora_Native_SDK_for_Android_FULL/rtc/sdk/high_level_api/include -I../../../../../../../third_party/spdlog/include  -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -march=armv7-a -mthumb -Wformat -Werror=format-security   -Oz -DNDEBUG  -fPIC   -std=gnu++14 -o CMakeFiles/iris-plugin.dir/VideoObserverPlugin/plugin_c_api.cpp.o -c /Users/fenglang/codes/aw/RawDataPluginSample/VideoObserverPlugin/plugin_c_api.cpp",
+  "file": "/Users/fenglang/codes/aw/RawDataPluginSample/VideoObserverPlugin/plugin_c_api.cpp"
+},
+
+{
+  "directory": "/Users/fenglang/codes/aw/RawDataPluginSample/dcg/android/app/.cxx/cmake/release/armeabi-v7a",
+  "command": "/Users/fenglang/Library/Android/sdk/ndk/21.1.6352462/toolchains/llvm/prebuilt/darwin-x86_64/bin/clang++ --target=armv7-none-linux-androideabi16 --gcc-toolchain=/Users/fenglang/Library/Android/sdk/ndk/21.1.6352462/toolchains/llvm/prebuilt/darwin-x86_64 --sysroot=/Users/fenglang/Library/Android/sdk/ndk/21.1.6352462/toolchains/llvm/prebuilt/darwin-x86_64/sysroot  -DSPDLOG_COMPILED_LIB -I../../../../../../../third_party/spdlog/include  -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -march=armv7-a -mthumb -Wformat -Werror=format-security   -Oz -DNDEBUG  -fPIC   -std=c++14 -o spdlog/CMakeFiles/spdlog.dir/src/spdlog.cpp.o -c /Users/fenglang/codes/aw/RawDataPluginSample/third_party/spdlog/src/spdlog.cpp",
+  "file": "/Users/fenglang/codes/aw/RawDataPluginSample/third_party/spdlog/src/spdlog.cpp"
+},
+
+{
+  "directory": "/Users/fenglang/codes/aw/RawDataPluginSample/dcg/android/app/.cxx/cmake/release/armeabi-v7a",
+  "command": "/Users/fenglang/Library/Android/sdk/ndk/21.1.6352462/toolchains/llvm/prebuilt/darwin-x86_64/bin/clang++ --target=armv7-none-linux-androideabi16 --gcc-toolchain=/Users/fenglang/Library/Android/sdk/ndk/21.1.6352462/toolchains/llvm/prebuilt/darwin-x86_64 --sysroot=/Users/fenglang/Library/Android/sdk/ndk/21.1.6352462/toolchains/llvm/prebuilt/darwin-x86_64/sysroot  -DSPDLOG_COMPILED_LIB -I../../../../../../../third_party/spdlog/include  -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -march=armv7-a -mthumb -Wformat -Werror=format-security   -Oz -DNDEBUG  -fPIC   -std=c++14 -o spdlog/CMakeFiles/spdlog.dir/src/stdout_sinks.cpp.o -c /Users/fenglang/codes/aw/RawDataPluginSample/third_party/spdlog/src/stdout_sinks.cpp",
+  "file": "/Users/fenglang/codes/aw/RawDataPluginSample/third_party/spdlog/src/stdout_sinks.cpp"
+},
+
+{
+  "directory": "/Users/fenglang/codes/aw/RawDataPluginSample/dcg/android/app/.cxx/cmake/release/armeabi-v7a",
+  "command": "/Users/fenglang/Library/Android/sdk/ndk/21.1.6352462/toolchains/llvm/prebuilt/darwin-x86_64/bin/clang++ --target=armv7-none-linux-androideabi16 --gcc-toolchain=/Users/fenglang/Library/Android/sdk/ndk/21.1.6352462/toolchains/llvm/prebuilt/darwin-x86_64 --sysroot=/Users/fenglang/Library/Android/sdk/ndk/21.1.6352462/toolchains/llvm/prebuilt/darwin-x86_64/sysroot  -DSPDLOG_COMPILED_LIB -I../../../../../../../third_party/spdlog/include  -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -march=armv7-a -mthumb -Wformat -Werror=format-security   -Oz -DNDEBUG  -fPIC   -std=c++14 -o spdlog/CMakeFiles/spdlog.dir/src/color_sinks.cpp.o -c /Users/fenglang/codes/aw/RawDataPluginSample/third_party/spdlog/src/color_sinks.cpp",
+  "file": "/Users/fenglang/codes/aw/RawDataPluginSample/third_party/spdlog/src/color_sinks.cpp"
+},
+
+{
+  "directory": "/Users/fenglang/codes/aw/RawDataPluginSample/dcg/android/app/.cxx/cmake/release/armeabi-v7a",
+  "command": "/Users/fenglang/Library/Android/sdk/ndk/21.1.6352462/toolchains/llvm/prebuilt/darwin-x86_64/bin/clang++ --target=armv7-none-linux-androideabi16 --gcc-toolchain=/Users/fenglang/Library/Android/sdk/ndk/21.1.6352462/toolchains/llvm/prebuilt/darwin-x86_64 --sysroot=/Users/fenglang/Library/Android/sdk/ndk/21.1.6352462/toolchains/llvm/prebuilt/darwin-x86_64/sysroot  -DSPDLOG_COMPILED_LIB -I../../../../../../../third_party/spdlog/include  -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -march=armv7-a -mthumb -Wformat -Werror=format-security   -Oz -DNDEBUG  -fPIC   -std=c++14 -o spdlog/CMakeFiles/spdlog.dir/src/file_sinks.cpp.o -c /Users/fenglang/codes/aw/RawDataPluginSample/third_party/spdlog/src/file_sinks.cpp",
+  "file": "/Users/fenglang/codes/aw/RawDataPluginSample/third_party/spdlog/src/file_sinks.cpp"
+},
+
+{
+  "directory": "/Users/fenglang/codes/aw/RawDataPluginSample/dcg/android/app/.cxx/cmake/release/armeabi-v7a",
+  "command": "/Users/fenglang/Library/Android/sdk/ndk/21.1.6352462/toolchains/llvm/prebuilt/darwin-x86_64/bin/clang++ --target=armv7-none-linux-androideabi16 --gcc-toolchain=/Users/fenglang/Library/Android/sdk/ndk/21.1.6352462/toolchains/llvm/prebuilt/darwin-x86_64 --sysroot=/Users/fenglang/Library/Android/sdk/ndk/21.1.6352462/toolchains/llvm/prebuilt/darwin-x86_64/sysroot  -DSPDLOG_COMPILED_LIB -I../../../../../../../third_party/spdlog/include  -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -march=armv7-a -mthumb -Wformat -Werror=format-security   -Oz -DNDEBUG  -fPIC   -std=c++14 -o spdlog/CMakeFiles/spdlog.dir/src/async.cpp.o -c /Users/fenglang/codes/aw/RawDataPluginSample/third_party/spdlog/src/async.cpp",
+  "file": "/Users/fenglang/codes/aw/RawDataPluginSample/third_party/spdlog/src/async.cpp"
+},
+
+{
+  "directory": "/Users/fenglang/codes/aw/RawDataPluginSample/dcg/android/app/.cxx/cmake/release/armeabi-v7a",
+  "command": "/Users/fenglang/Library/Android/sdk/ndk/21.1.6352462/toolchains/llvm/prebuilt/darwin-x86_64/bin/clang++ --target=armv7-none-linux-androideabi16 --gcc-toolchain=/Users/fenglang/Library/Android/sdk/ndk/21.1.6352462/toolchains/llvm/prebuilt/darwin-x86_64 --sysroot=/Users/fenglang/Library/Android/sdk/ndk/21.1.6352462/toolchains/llvm/prebuilt/darwin-x86_64/sysroot  -DSPDLOG_COMPILED_LIB -I../../../../../../../third_party/spdlog/include  -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -march=armv7-a -mthumb -Wformat -Werror=format-security   -Oz -DNDEBUG  -fPIC   -std=c++14 -o spdlog/CMakeFiles/spdlog.dir/src/cfg.cpp.o -c /Users/fenglang/codes/aw/RawDataPluginSample/third_party/spdlog/src/cfg.cpp",
+  "file": "/Users/fenglang/codes/aw/RawDataPluginSample/third_party/spdlog/src/cfg.cpp"
+},
+
+{
+  "directory": "/Users/fenglang/codes/aw/RawDataPluginSample/dcg/android/app/.cxx/cmake/release/armeabi-v7a",
+  "command": "/Users/fenglang/Library/Android/sdk/ndk/21.1.6352462/toolchains/llvm/prebuilt/darwin-x86_64/bin/clang++ --target=armv7-none-linux-androideabi16 --gcc-toolchain=/Users/fenglang/Library/Android/sdk/ndk/21.1.6352462/toolchains/llvm/prebuilt/darwin-x86_64 --sysroot=/Users/fenglang/Library/Android/sdk/ndk/21.1.6352462/toolchains/llvm/prebuilt/darwin-x86_64/sysroot  -DSPDLOG_COMPILED_LIB -I../../../../../../../third_party/spdlog/include  -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -march=armv7-a -mthumb -Wformat -Werror=format-security   -Oz -DNDEBUG  -fPIC   -std=c++14 -o spdlog/CMakeFiles/spdlog.dir/src/fmt.cpp.o -c /Users/fenglang/codes/aw/RawDataPluginSample/third_party/spdlog/src/fmt.cpp",
+  "file": "/Users/fenglang/codes/aw/RawDataPluginSample/third_party/spdlog/src/fmt.cpp"
+}
+]

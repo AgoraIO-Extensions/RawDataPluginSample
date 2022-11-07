@@ -1,0 +1,32 @@
+{
+  "buildFiles": [
+    "/Users/fenglang/codes/aw/RawDataPluginSample/CMakeLists.txt",
+    "/Users/fenglang/Library/Android/sdk/ndk/21.1.6352462/build/cmake/android.toolchain.cmake",
+    "/Users/fenglang/Library/Android/sdk/ndk/21.1.6352462/build/cmake/platforms.cmake",
+    "/Users/fenglang/codes/aw/RawDataPluginSample/cmake/sdk.download.cmake",
+    "/Users/fenglang/codes/aw/RawDataPluginSample/cmake/sdk.url.cmake",
+    "/Users/fenglang/codes/aw/RawDataPluginSample/third_party/spdlog/CMakeLists.txt",
+    "/Users/fenglang/codes/aw/RawDataPluginSample/third_party/spdlog/cmake/utils.cmake",
+    "/Users/fenglang/codes/aw/RawDataPluginSample/third_party/spdlog/cmake/ide.cmake"
+  ],
+  "cleanCommands": [
+    "/Users/fenglang/Library/Android/sdk/cmake/3.10.2.4988404/bin/ninja -C \"/Users/fenglang/codes/aw/RawDataPluginSample/dcg/android/app/.cxx/cmake/release/x86_64\" clean"
+  ],
+  "buildTargetsCommand": "/Users/fenglang/Library/Android/sdk/cmake/3.10.2.4988404/bin/ninja  -C \"/Users/fenglang/codes/aw/RawDataPluginSample/dcg/android/app/.cxx/cmake/release/x86_64\" {LIST_OF_TARGETS_TO_BUILD}",
+  "libraries": {
+    "iris-plugin-Release-x86_64": {
+      "artifactName": "iris-plugin",
+      "buildCommand": "/Users/fenglang/Library/Android/sdk/cmake/3.10.2.4988404/bin/ninja -C \"/Users/fenglang/codes/aw/RawDataPluginSample/dcg/android/app/.cxx/cmake/release/x86_64\" iris-plugin",
+      "abi": "x86_64",
+      "output": "/Users/fenglang/codes/aw/RawDataPluginSample/dcg/android/app/.cxx/cmake/release/x86_64/output/Release/libVideoObserverPlugin.so",
+      "runtimeFiles": []
+    },
+    "spdlog-Release-x86_64": {
+      "artifactName": "spdlog",
+      "buildCommand": "/Users/fenglang/Library/Android/sdk/cmake/3.10.2.4988404/bin/ninja -C \"/Users/fenglang/codes/aw/RawDataPluginSample/dcg/android/app/.cxx/cmake/release/x86_64\" spdlog",
+      "abi": "x86_64",
+      "output": "/Users/fenglang/codes/aw/RawDataPluginSample/dcg/android/app/.cxx/cmake/release/x86_64/spdlog/libspdlog.a",
+      "runtimeFiles": []
+    }
+  }
+}

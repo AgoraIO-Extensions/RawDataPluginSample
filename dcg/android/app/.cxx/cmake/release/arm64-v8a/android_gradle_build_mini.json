@@ -1,0 +1,32 @@
+{
+  "buildFiles": [
+    "/Users/fenglang/codes/aw/RawDataPluginSample/CMakeLists.txt",
+    "/Users/fenglang/Library/Android/sdk/ndk/21.1.6352462/build/cmake/android.toolchain.cmake",
+    "/Users/fenglang/Library/Android/sdk/ndk/21.1.6352462/build/cmake/platforms.cmake",
+    "/Users/fenglang/codes/aw/RawDataPluginSample/cmake/sdk.download.cmake",
+    "/Users/fenglang/codes/aw/RawDataPluginSample/cmake/sdk.url.cmake",
+    "/Users/fenglang/codes/aw/RawDataPluginSample/third_party/spdlog/CMakeLists.txt",
+    "/Users/fenglang/codes/aw/RawDataPluginSample/third_party/spdlog/cmake/utils.cmake",
+    "/Users/fenglang/codes/aw/RawDataPluginSample/third_party/spdlog/cmake/ide.cmake"
+  ],
+  "cleanCommands": [
+    "/Users/fenglang/Library/Android/sdk/cmake/3.10.2.4988404/bin/ninja -C \"/Users/fenglang/codes/aw/RawDataPluginSample/dcg/android/app/.cxx/cmake/release/arm64-v8a\" clean"
+  ],
+  "buildTargetsCommand": "/Users/fenglang/Library/Android/sdk/cmake/3.10.2.4988404/bin/ninja  -C \"/Users/fenglang/codes/aw/RawDataPluginSample/dcg/android/app/.cxx/cmake/release/arm64-v8a\" {LIST_OF_TARGETS_TO_BUILD}",
+  "libraries": {
+    "iris-plugin-Release-arm64-v8a": {
+      "artifactName": "iris-plugin",
+      "buildCommand": "/Users/fenglang/Library/Android/sdk/cmake/3.10.2.4988404/bin/ninja -C \"/Users/fenglang/codes/aw/RawDataPluginSample/dcg/android/app/.cxx/cmake/release/arm64-v8a\" iris-plugin",
+      "abi": "arm64-v8a",
+      "output": "/Users/fenglang/codes/aw/RawDataPluginSample/dcg/android/app/.cxx/cmake/release/arm64-v8a/output/Release/libVideoObserverPlugin.so",
+      "runtimeFiles": []
+    },
+    "spdlog-Release-arm64-v8a": {
+      "artifactName": "spdlog",
+      "buildCommand": "/Users/fenglang/Library/Android/sdk/cmake/3.10.2.4988404/bin/ninja -C \"/Users/fenglang/codes/aw/RawDataPluginSample/dcg/android/app/.cxx/cmake/release/arm64-v8a\" spdlog",
+      "abi": "arm64-v8a",
+      "output": "/Users/fenglang/codes/aw/RawDataPluginSample/dcg/android/app/.cxx/cmake/release/arm64-v8a/spdlog/libspdlog.a",
+      "runtimeFiles": []
+    }
+  }
+}

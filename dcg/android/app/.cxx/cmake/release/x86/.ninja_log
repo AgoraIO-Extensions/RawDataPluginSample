@@ -1,0 +1,4 @@
+# ninja log v5
+2	1357	1666772661	CMakeFiles/iris-plugin.dir/VideoObserverPlugin/plugin_c_api.cpp.o	7a7b950695cb4d38
+0	41698	1666772702	CMakeFiles/iris-plugin.dir/VideoObserverPlugin/VideoObserverPlugin.cpp.o	f309f5a51bd303da
+41699	42201	1666772702	output/Release/libVideoObserverPlugin.so	62d2f6f87e1d688c

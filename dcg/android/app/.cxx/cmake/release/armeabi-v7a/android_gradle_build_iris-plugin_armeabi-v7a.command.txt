@@ -1,0 +1,7 @@
+Executable : /Users/fenglang/Library/Android/sdk/cmake/3.10.2.4988404/bin/ninja
+arguments : 
+-C
+/Users/fenglang/codes/aw/RawDataPluginSample/dcg/android/app/.cxx/cmake/release/armeabi-v7a
+iris-plugin
+jvmArgs : 
+

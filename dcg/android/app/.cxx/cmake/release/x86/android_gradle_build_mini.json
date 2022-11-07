@@ -1,0 +1,32 @@
+{
+  "buildFiles": [
+    "/Users/fenglang/codes/aw/RawDataPluginSample/CMakeLists.txt",
+    "/Users/fenglang/Library/Android/sdk/ndk/21.1.6352462/build/cmake/android.toolchain.cmake",
+    "/Users/fenglang/Library/Android/sdk/ndk/21.1.6352462/build/cmake/platforms.cmake",
+    "/Users/fenglang/codes/aw/RawDataPluginSample/cmake/sdk.download.cmake",
+    "/Users/fenglang/codes/aw/RawDataPluginSample/cmake/sdk.url.cmake",
+    "/Users/fenglang/codes/aw/RawDataPluginSample/third_party/spdlog/CMakeLists.txt",
+    "/Users/fenglang/codes/aw/RawDataPluginSample/third_party/spdlog/cmake/utils.cmake",
+    "/Users/fenglang/codes/aw/RawDataPluginSample/third_party/spdlog/cmake/ide.cmake"
+  ],
+  "cleanCommands": [
+    "/Users/fenglang/Library/Android/sdk/cmake/3.10.2.4988404/bin/ninja -C \"/Users/fenglang/codes/aw/RawDataPluginSample/dcg/android/app/.cxx/cmake/release/x86\" clean"
+  ],
+  "buildTargetsCommand": "/Users/fenglang/Library/Android/sdk/cmake/3.10.2.4988404/bin/ninja  -C \"/Users/fenglang/codes/aw/RawDataPluginSample/dcg/android/app/.cxx/cmake/release/x86\" {LIST_OF_TARGETS_TO_BUILD}",
+  "libraries": {
+    "spdlog-Release-x86": {
+      "artifactName": "spdlog",
+      "buildCommand": "/Users/fenglang/Library/Android/sdk/cmake/3.10.2.4988404/bin/ninja -C \"/Users/fenglang/codes/aw/RawDataPluginSample/dcg/android/app/.cxx/cmake/release/x86\" spdlog",
+      "abi": "x86",
+      "output": "/Users/fenglang/codes/aw/RawDataPluginSample/dcg/android/app/.cxx/cmake/release/x86/spdlog/libspdlog.a",
+      "runtimeFiles": []
+    },
+    "iris-plugin-Release-x86": {
+      "artifactName": "iris-plugin",
+      "buildCommand": "/Users/fenglang/Library/Android/sdk/cmake/3.10.2.4988404/bin/ninja -C \"/Users/fenglang/codes/aw/RawDataPluginSample/dcg/android/app/.cxx/cmake/release/x86\" iris-plugin",
+      "abi": "x86",
+      "output": "/Users/fenglang/codes/aw/RawDataPluginSample/dcg/android/app/.cxx/cmake/release/x86/output/Release/libVideoObserverPlugin.so",
+      "runtimeFiles": []
+    }
+  }
+}
