@@ -92,7 +92,7 @@ jobs:
       - name: Get current date
         id: date
         run: |
-          VERSION=$(bash ci/grep_version.sh)
+          VERSION=$(bash scripts/grep_version.sh)
           DATE=$(date '+%Y%m%d')
           BUILD_NAME="${VERSION}_${DATE}"
           echo "::set-output name=date::${BUILD_NAME}"
@@ -132,7 +132,7 @@ jobs:
       - name: Get current date
         id: date
         run: |
-          VERSION=$(bash ci/grep_version.sh)
+          VERSION=$(bash scripts/grep_version.sh)
           DATE=$(date '+%Y%m%d')
           BUILD_NAME="${VERSION}_${DATE}"
           echo "::set-output name=date::${BUILD_NAME}"
@@ -162,7 +162,7 @@ jobs:
 
           mkdir -p ${OUTPUT_ARTIFACTORY_PATH}
 
-          bash scripts/build-windows.sh ${OUTPUT_ARTIFACTORY_PATH}
+          bash scripts/build-windows.sh $(pwd) ${OUTPUT_ARTIFACTORY_PATH}
 
           ZIP_FILE_NAME="${OUTPUT_ARTIFACTORY_NAME}.zip"
 
@@ -174,7 +174,7 @@ jobs:
         id: date
         shell: bash
         run: |
-          VERSION=$(bash ci/grep_version.sh)
+          VERSION=$(bash scripts/grep_version.sh)
           DATE=$(date '+%Y%m%d')
           BUILD_NAME="${VERSION}_${DATE}"
           echo "::set-output name=date::${BUILD_NAME}"
