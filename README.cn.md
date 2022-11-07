@@ -3,13 +3,13 @@
 
 # 快速体验
 
-### 1.环境配置
+## 1. 环境配置
 * CMake
 * Xcode (mac os)
 * visual studio 2016 (windows)  
 
-### 2.编译产物
-#### （1）mac os 产物()
+## 2. 编译产物
+#### （1）mac os 产物
 在仓库根目录下执行:
 ```sh
 sh dcg/ci/build-mac.sh
@@ -21,7 +21,7 @@ sh dcg/ci/build-mac.sh
 | Unity SDK |  build/mac/MAC/output/Release/VideoObserverPluginUnity.bundle | Assets/Agora-RTC-Plugin/Agora-Unity-RTC-SDK/Plugins/macOS |
 |
 
-#### （2）iOS 产物()
+#### （2）iOS 产物
 在仓库根目录下执行:
 ```sh
 sh dcg/ci/build-ios.sh
@@ -60,5 +60,5 @@ windows平台
 | ---- | ---- | ---- |
 | Unity SDK |  build/windows/Win32/output/Release/VideoObserverPlugin.dll, build/windows/x64/output/Release/VideoObserverPlugin.dll | Assets/Agora-RTC-Plugin/Agora-Unity-RTC-SDK/Plugins/x86, Assets/Agora-RTC-Plugin/Agora-Unity-RTC-SDK/Plugins/x86_64, |
 
-# 运行demo
+## 3. 运行demo
 上述生成的产物，拷贝完毕后。即可运行SDK内置的插件demo。体验插件开启后的效果

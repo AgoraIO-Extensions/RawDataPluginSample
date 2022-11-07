@@ -4,7 +4,7 @@
 #include <jni.h>
 #endif
 
-bool EnablePlugin(PluginSamplePtr plugin) {
+bool IRIS_PLUGIN_CALL EnablePlugin(PluginSamplePtr plugin) {
   if (plugin) {
     return ((VideoObserverPlugin *) plugin)->EnablePlugin();
   } else {
@@ -12,7 +12,7 @@ bool EnablePlugin(PluginSamplePtr plugin) {
   }
 }
 
-bool DisablePlugin(PluginSamplePtr plugin) {
+bool IRIS_PLUGIN_CALL DisablePlugin(PluginSamplePtr plugin) {
   if (plugin) {
     return ((VideoObserverPlugin *) plugin)->DisablePlugin();
   } else {
@@ -20,13 +20,13 @@ bool DisablePlugin(PluginSamplePtr plugin) {
   }
 }
 
-PluginSamplePtr CreateSamplePlugin(void *rtcEnginePtr) {
+PluginSamplePtr IRIS_PLUGIN_CALL CreateSamplePlugin(void *rtcEnginePtr) {
   auto *plugin =
       new VideoObserverPlugin((agora::rtc::IRtcEngine *) rtcEnginePtr);
   return (void *) plugin;
 }
 
-void DestroySamplePlugin(PluginSamplePtr plugin) {
+void IRIS_PLUGIN_CALL DestroySamplePlugin(PluginSamplePtr plugin) {
   delete (VideoObserverPlugin *) plugin;
 }
 

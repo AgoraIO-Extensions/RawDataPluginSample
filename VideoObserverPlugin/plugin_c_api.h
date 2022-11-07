@@ -3,10 +3,14 @@
 
 #include "iris_plugin_platform.h"
 
+EXTERN_C_ENTER
+
 typedef void *PluginSamplePtr;
-IRIS_PLUGIN_API bool EnablePlugin(PluginSamplePtr plugin);
-IRIS_PLUGIN_API bool DisablePlugin(PluginSamplePtr plugin);
-IRIS_PLUGIN_API PluginSamplePtr CreateSamplePlugin(void *rtcEnginePtr);
-IRIS_PLUGIN_API void DestroySamplePlugin(PluginSamplePtr plugin);
+IRIS_PLUGIN_API bool IRIS_PLUGIN_CALL EnablePlugin(PluginSamplePtr plugin);
+IRIS_PLUGIN_API bool IRIS_PLUGIN_CALL DisablePlugin(PluginSamplePtr plugin);
+IRIS_PLUGIN_API PluginSamplePtr IRIS_PLUGIN_CALL CreateSamplePlugin(void *rtcEnginePtr);
+IRIS_PLUGIN_API void IRIS_PLUGIN_CALL DestroySamplePlugin(PluginSamplePtr plugin);
+
+EXTERN_C_LEAVE
 
 #endif
