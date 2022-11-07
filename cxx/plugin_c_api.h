@@ -8,6 +8,6 @@ IRIS_PLUGIN_API bool EnablePlugin(PluginPtr plugin);
 
 IRIS_PLUGIN_API bool DisablePlugin(PluginPtr plugin);
 
-IRIS_PLUGIN_API PluginPtr CreatePlugin(void *rtcEnginePtr);
+IRIS_PLUGIN_API PluginPtr CreateSamplePlugin(void *rtcEnginePtr);
 
-IRIS_PLUGIN_API void DestroyPlugin(PluginPtr plugin);
+IRIS_PLUGIN_API void DestroySamplePlugin(PluginPtr plugin);

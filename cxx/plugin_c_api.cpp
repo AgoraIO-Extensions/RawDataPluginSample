@@ -17,29 +17,30 @@ bool DisablePlugin(PluginPtr plugin) {
   }
 }
 
-PluginPtr CreatePlugin(void *rtcEnginePtr) {
+PluginPtr CreateSamplePlugin(void *rtcEnginePtr) {
   auto *plugin =
       new VideoFrameObserver((agora::rtc::IRtcEngine *) rtcEnginePtr);
   return (void *) plugin;
 }
 
-void DestroyPlugin(PluginPtr plugin) { delete (VideoFrameObserver *) plugin; }
+void DestroySamplePlugin(PluginPtr plugin) {
+  delete (VideoFrameObserver *) plugin;
+}
 
 #if defined(__ANDROID__)
 #include <jni.h>
 
 extern "C" JNIEXPORT jlong JNICALL
-Java_io_agora_rtc_plugin_AgoraRawDataPlugin_createPlugin(JNIEnv *env,
-                                                         jobject thiz,
-                                                         jlong native_handle) {
-  return (jlong) CreatePlugin((void *) native_handle);
+Java_io_agora_rtc_plugin_AgoraRawDataPlugin_createSamplePlugin(
+    JNIEnv *env, jobject thiz, jlong native_handle) {
+  return (jlong) CreateSamplePlugin((void *) native_handle);
 }
 
 extern "C" JNIEXPORT void JNICALL
-Java_io_agora_rtc_plugin_AgoraRawDataPlugin_destroyPlugin(JNIEnv *env,
-                                                          jobject thiz,
-                                                          jlong handle) {
-  DestroyPlugin((PluginPtr) handle);
+Java_io_agora_rtc_plugin_AgoraRawDataPlugin_destroySamplePlugin(JNIEnv *env,
+                                                                jobject thiz,
+                                                                jlong handle) {
+  DestroySamplePlugin((PluginPtr) handle);
 }
 
 extern "C" JNIEXPORT jboolean JNICALL
