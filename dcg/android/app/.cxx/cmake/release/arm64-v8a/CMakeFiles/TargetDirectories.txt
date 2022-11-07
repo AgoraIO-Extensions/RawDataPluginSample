@@ -1,6 +1,0 @@
-/Users/fenglang/codes/aw/RawDataPluginSample/dcg/android/app/.cxx/cmake/release/arm64-v8a/CMakeFiles/rebuild_cache.dir
-/Users/fenglang/codes/aw/RawDataPluginSample/dcg/android/app/.cxx/cmake/release/arm64-v8a/CMakeFiles/edit_cache.dir
-/Users/fenglang/codes/aw/RawDataPluginSample/dcg/android/app/.cxx/cmake/release/arm64-v8a/CMakeFiles/iris-plugin.dir
-/Users/fenglang/codes/aw/RawDataPluginSample/dcg/android/app/.cxx/cmake/release/arm64-v8a/spdlog/CMakeFiles/rebuild_cache.dir
-/Users/fenglang/codes/aw/RawDataPluginSample/dcg/android/app/.cxx/cmake/release/arm64-v8a/spdlog/CMakeFiles/edit_cache.dir
-/Users/fenglang/codes/aw/RawDataPluginSample/dcg/android/app/.cxx/cmake/release/arm64-v8a/spdlog/CMakeFiles/spdlog.dir
