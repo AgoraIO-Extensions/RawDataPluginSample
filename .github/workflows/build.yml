@@ -116,7 +116,7 @@ jobs:
       - uses: actions/checkout@v3
       - name: Run cmake build macos
         run: |
-          bash dcg/ci/build-macos.sh
+          bash dcg/ci/build-mac.sh
 
           OUTPUT_ARTIFACTORY_NAME="VideoObserver_Plugin_for_macOS"
           OUTPUT_ARTIFACTORY_PATH=output/${OUTPUT_ARTIFACTORY_NAME}
