@@ -29,6 +29,9 @@ buildALL() {
   buildType="$1"
   echo "start build MAC ----------"
   build MAC "$buildType"
+  output_dir="$root_path/build/mac/MAC/output/$buildType"
+  output_name="AgoraRawDataPlugin"
+  cp "$output_dir/$output_name.framework/$output_name" "$output_dir/$output_name.dylib"
 }
 
 if [ "$1" = "build" ]; then
