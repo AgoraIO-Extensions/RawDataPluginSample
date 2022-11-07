@@ -26,7 +26,7 @@ jobs:
           ANDROID_NDK: ${{ steps.setup-ndk.outputs.ndk-path }}
         run: |
           ls $ANDROID_NDK
-          bash dcg/ci/build-android.sh
+          bash scripts/build-android.sh
 
           OUTPUT_ARTIFACTORY_NAME="VideoObserver_Plugin_for_Android"
           OUTPUT_ARTIFACTORY_PATH=output/${OUTPUT_ARTIFACTORY_NAME}
@@ -51,7 +51,7 @@ jobs:
       - name: Get current date
         id: date
         run: |
-          VERSION=$(bash ci/grep_version.sh)
+          VERSION=$(bash scripts/grep_version.sh)
           DATE=$(date '+%Y%m%d')
           BUILD_NAME="${VERSION}_${DATE}"
           echo "::set-output name=date::${BUILD_NAME}"
@@ -75,7 +75,7 @@ jobs:
       - uses: actions/checkout@v3
       - name: Run cmake build ios
         run: |
-          bash dcg/ci/build-ios.sh
+          bash scripts/build-ios.sh
 
           OUTPUT_ARTIFACTORY_NAME="VideoObserver_Plugin_for_iOS"
           OUTPUT_ARTIFACTORY_PATH=output/${OUTPUT_ARTIFACTORY_NAME}
@@ -116,7 +116,7 @@ jobs:
       - uses: actions/checkout@v3
       - name: Run cmake build macos
         run: |
-          bash dcg/ci/build-mac.sh
+          bash scripts/build-mac.sh
 
           OUTPUT_ARTIFACTORY_NAME="VideoObserver_Plugin_for_macOS"
           OUTPUT_ARTIFACTORY_PATH=output/${OUTPUT_ARTIFACTORY_NAME}
@@ -162,7 +162,7 @@ jobs:
 
           mkdir -p ${OUTPUT_ARTIFACTORY_PATH}
 
-          bash dcg/ci/build-windows.sh ${OUTPUT_ARTIFACTORY_PATH}
+          bash scripts/build-windows.sh ${OUTPUT_ARTIFACTORY_PATH}
 
           ZIP_FILE_NAME="${OUTPUT_ARTIFACTORY_NAME}.zip"
 
