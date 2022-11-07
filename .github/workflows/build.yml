@@ -5,10 +5,14 @@ on:
     branches: 
       - main
       - release/**
+      # Add this for test at this time
+      - littlegnal/add-github-release 
   pull_request:
     branches: 
       - main
       - release/**
+      # Add this for test at this time
+      - littlegnal/add-github-release 
 
 jobs:
   cmake_build_android:
