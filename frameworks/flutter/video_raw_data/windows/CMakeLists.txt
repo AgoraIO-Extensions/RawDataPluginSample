@@ -8,9 +8,20 @@ cmake_minimum_required(VERSION 3.14)
 set(PROJECT_NAME "video_raw_data")
 project(${PROJECT_NAME} LANGUAGES CXX)
 
+# Add this project's cmake/ directory to the module path.
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
+
 # This value is used when generating builds using this plugin, so it must
 # not be changed
 set(PLUGIN_NAME "video_raw_data_plugin")
+
+
+set(DOWNLOAD_URL "https://github.com/AgoraIO-Extensions/RawDataPluginSample/releases/download/artifact_0.1.0_20221108/VideoObserver_Plugin_for_Windows.zip")
+set(DOWNLOAD_PATH "${CMAKE_CURRENT_SOURCE_DIR}/third_party")
+set(VIDEO_RAW_DATA_DLL_PATH "${DOWNLOAD_PATH}/VideoObserver_Plugin_for_Windows")
+
+include(DownloadSDK)
+DOWNLOAD_SDK_BY_URL("${DOWNLOAD_URL}" "${DOWNLOAD_PATH}")
 
 # Any new source files that you add to the plugin should be added here.
 list(APPEND PLUGIN_SOURCES
@@ -25,10 +36,6 @@ add_library(${PLUGIN_NAME} SHARED
   "video_raw_data_plugin_c_api.cpp"
   ${PLUGIN_SOURCES}
 )
-
-# Invoke the build for native code shared with the other target platforms.
-# This can be changed to accomodate different builds.
-add_subdirectory("${CMAKE_CURRENT_SOURCE_DIR}/../../../../" "${CMAKE_CURRENT_BINARY_DIR}/shared")
 
 # Apply a standard set of build settings that are configured in the
 # application-level CMakeLists.txt. This can be removed for plugins that want
@@ -54,6 +61,7 @@ target_link_libraries(${PLUGIN_NAME} PRIVATE flutter flutter_wrapper_plugin)
 set(video_raw_data_bundled_libraries
   # Defined in ../src/CMakeLists.txt.
   # This can be changed to accomodate different builds.
-  $<TARGET_FILE:AgoraRawDataPlugin>
+  # $<TARGET_FILE:raw-data-plugin
+  "${VIDEO_RAW_DATA_DLL_PATH}/AgoraRawDataPlugin.dll"
   PARENT_SCOPE
 )
