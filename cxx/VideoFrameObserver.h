@@ -1,7 +1,7 @@
 #pragma once
 
-#include "IAgoraMediaEngine.h"
-#include "IAgoraRtcEngine.h"
+#include "../include/IAgoraMediaEngine.h"
+#include "../include/IAgoraRtcEngine.h"
 #include "plugin_base.h"
 
 class PLUGIN_CPP_API VideoFrameObserver

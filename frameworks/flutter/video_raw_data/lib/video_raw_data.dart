@@ -15,6 +15,22 @@ ffi.DynamicLibrary _loadLib() {
   return ffi.DynamicLibrary.process();
 }
 
+const String _libName = 'AgoraRawDataPlugin';
+const String _appLibName = 'video_raw_data';
+
+final ffi.DynamicLibrary _dylib = () {
+  if (Platform.isMacOS || Platform.isIOS) {
+    return ffi.DynamicLibrary.open('$_appLibName.framework/$_appLibName');
+  }
+  if (Platform.isAndroid || Platform.isLinux) {
+    return ffi.DynamicLibrary.open('lib$_libName.so');
+  }
+  if (Platform.isWindows) {
+    return ffi.DynamicLibrary.open('$_libName.dll');
+  }
+  throw UnsupportedError('Unknown platform: ${Platform.operatingSystem}');
+}();
+
 class VideoRawDataController {
   VideoRawDataController();
 
@@ -26,7 +42,7 @@ class VideoRawDataController {
   /// * [rtcEngineNativeHandle]: the [RtcEngine.getNativeHandle]
   void initialize(int rtcEngineNativeHandle) {
     assert(!isInitialized);
-    _binding = NativePluginApiBinding(_loadLib());
+    _binding = NativePluginApiBinding(_dylib);
     _pluginPtr = _binding.CreateSamplePlugin(
         ffi.Pointer<ffi.Void>.fromAddress(rtcEngineNativeHandle));
     _binding.EnablePlugin(_pluginPtr);

@@ -26,6 +26,10 @@ add_library(${PLUGIN_NAME} SHARED
   ${PLUGIN_SOURCES}
 )
 
+# Invoke the build for native code shared with the other target platforms.
+# This can be changed to accomodate different builds.
+add_subdirectory("${CMAKE_CURRENT_SOURCE_DIR}/../../../../" "${CMAKE_CURRENT_BINARY_DIR}/shared")
+
 # Apply a standard set of build settings that are configured in the
 # application-level CMakeLists.txt. This can be removed for plugins that want
 # full control over build settings.
@@ -48,6 +52,8 @@ target_link_libraries(${PLUGIN_NAME} PRIVATE flutter flutter_wrapper_plugin)
 # This list could contain prebuilt libraries, or libraries created by an
 # external build triggered from this build file.
 set(video_raw_data_bundled_libraries
-  "${CMAKE_CURRENT_SOURCE_DIR}/VideoObserverPlugin.dll"
+  # Defined in ../src/CMakeLists.txt.
+  # This can be changed to accomodate different builds.
+  $<TARGET_FILE:AgoraRawDataPlugin>
   PARENT_SCOPE
 )
