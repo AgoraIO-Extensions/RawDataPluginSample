@@ -4,7 +4,7 @@ set(CMAKE_CXX_STANDARD 14)
 project(raw-data-plugin)
 
 # Make it simple to extract by script
-set(IRIS_PLUGIN_VERSION "0.1.0")
+set(PLUGIN_VERSION "0.1.0")
 
 if (WIN32)
     set(CMAKE_EXE_LINKER_FLAGS_RELEASE "${CMAKE_EXE_LINKER_FLAGS_RELEASE} /DEBUG")
