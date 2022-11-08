@@ -4,7 +4,7 @@
 #include "IAgoraRtcEngine.h"
 #include "plugin_base.h"
 
-class IRIS_PLUGIN_CPP_API VideoFrameObserver
+class PLUGIN_CPP_API VideoFrameObserver
     : public agora::media::IVideoFrameObserver {
  public:
   explicit VideoFrameObserver(agora::rtc::IRtcEngine *rtc_engine);
