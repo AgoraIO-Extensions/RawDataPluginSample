@@ -23,34 +23,34 @@
 #endif
 
 #if defined(_WIN32)
-#define IRIS_PLUGIN_CALL __cdecl
-#if defined(IRIS_PLUGIN_EXPORT)
-#define IRIS_PLUGIN_API EXTERN_C __declspec(dllexport)
-#define IRIS_PLUGIN_CPP_API __declspec(dllexport)
+#define PLUGIN_CALL __cdecl
+#if defined(PLUGIN_EXPORT)
+#define PLUGIN_API EXTERN_C __declspec(dllexport)
+#define PLUGIN_CPP_API __declspec(dllexport)
 #else
-#define IRIS_PLUGIN_API EXTERN_C __declspec(dllimport)
-#define IRIS_PLUGIN_CPP_API __declspec(dllimport)
+#define PLUGIN_API EXTERN_C __declspec(dllimport)
+#define PLUGIN_CPP_API __declspec(dllimport)
 #endif
 #elif defined(__APPLE__)
 #if AGORA_GCC_VERSION_AT_LEAST(3, 3)
-#define IRIS_PLUGIN_API __attribute__((visibility("default"))) EXTERN_C
-#define IRIS_PLUGIN_CPP_API __attribute__((visibility("default")))
+#define PLUGIN_API __attribute__((visibility("default"))) EXTERN_C
+#define PLUGIN_CPP_API __attribute__((visibility("default")))
 #else
-#define IRIS_PLUGIN_API EXTERN_C
-#define IRIS_PLUGIN_CPP_API
+#define PLUGIN_API EXTERN_C
+#define PLUGIN_CPP_API
 #endif
-#define IRIS_PLUGIN_CALL
+#define PLUGIN_CALL
 #elif defined(__ANDROID__) || defined(__linux__)
 #if AGORA_GCC_VERSION_AT_LEAST(3, 3)
-#define IRIS_PLUGIN_API EXTERN_C __attribute__((visibility("default")))
-#define IRIS_PLUGIN_CPP_API __attribute__((visibility("default")))
+#define PLUGIN_API EXTERN_C __attribute__((visibility("default")))
+#define PLUGIN_CPP_API __attribute__((visibility("default")))
 #else
-#define IRIS_PLUGIN_API EXTERN_C
-#define IRIS_PLUGIN_CPP_API
+#define PLUGIN_API EXTERN_C
+#define PLUGIN_CPP_API
 #endif
-#define IRIS_PLUGIN_CALL
+#define PLUGIN_CALL
 #else
-#define IRIS_PLUGIN_API EXTERN_C
-#define IRIS_PLUGIN_CPP_API
-#define IRIS_PLUGIN_CALL
+#define PLUGIN_API EXTERN_C
+#define PLUGIN_CPP_API
+#define PLUGIN_CALL
 #endif
