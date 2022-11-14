@@ -1,7 +1,7 @@
 #include "plugin_c_api.h"
 #include "VideoFrameObserver.h"
 
-bool EnablePlugin(PluginPtr plugin) {
+PLUGIN_API bool EnablePlugin(PluginPtr plugin) {
   if (plugin) {
     return ((VideoFrameObserver *) plugin)->EnablePlugin();
   } else {
@@ -9,7 +9,7 @@ bool EnablePlugin(PluginPtr plugin) {
   }
 }
 
-bool DisablePlugin(PluginPtr plugin) {
+PLUGIN_API bool DisablePlugin(PluginPtr plugin) {
   if (plugin) {
     return ((VideoFrameObserver *) plugin)->DisablePlugin();
   } else {
@@ -17,13 +17,13 @@ bool DisablePlugin(PluginPtr plugin) {
   }
 }
 
-PluginPtr CreateSamplePlugin(void *rtcEnginePtr) {
+PLUGIN_API PluginPtr CreateSamplePlugin(void *rtcEnginePtr) {
   auto *plugin =
       new VideoFrameObserver((agora::rtc::IRtcEngine *) rtcEnginePtr);
   return (void *) plugin;
 }
 
-void DestroySamplePlugin(PluginPtr plugin) {
+PLUGIN_API void DestroySamplePlugin(PluginPtr plugin) {
   delete (VideoFrameObserver *) plugin;
 }
 
