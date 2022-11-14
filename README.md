@@ -1,77 +1,89 @@
-# Iris
+# Introduction
 
-Agora 跨平台 SDK 基础模块
+This repository implements a simple plugin template if you want to make plugins for agora rtc sdk. Then you can refer to
+this repository to make your own unique plugin.
 
-## 开发环境
+# Quick Start
 
-* [Git](https://git-scm.com/)
+## 1. Environment Configuration
 
-* 推荐安装 [CLion](https://www.jetbrains.com/clion/) 或 [VSCode](https://code.visualstudio.com/)
+* CMake (3.10+)
+* Visual Studio 2019 (Windows)
+* Xcode (iOS/macOS)
+* Android Studio (Android)
+    * Gradle (6.5)
+    * NDK (You should set `ANDROID_NDK` into environment variables, Such
+      as: `export ANDROID_NDK="$HOME/Library/Android/sdk/ndk/21.1.6352462"`)
 
-    * [CMake](https://cmake.org/) 构建项目
-    * [ClangFormat](https://releases.llvm.org/10.0.0/tools/clang/docs/ClangFormat.html) 格式化代码
-    * [RapidJson](https://github.com/Tencent/rapidjson) 解析 JSON
-    * [GTest](https://github.com/google/googletest) 执行 UnitTest
+## 2. Compile Product
 
-* [NDK r18b](https://developer.android.com/ndk/downloads/older_releases) 并配置环境变量 **$ANDROID_NDK**
+### Windows Platform
 
-## 快速开始 
+Execute in the repository root directory:
 
-***Windows 请使用 Git Bash***
-
-#### 1、克隆代码
-
-```shell
-git clone ssh://git@git.agoralab.co/aduc/iris.git
-
-cd iris
-
-git submodule update --init
+```bat
+.\scripts\build-windows.bat
 ```
 
-#### 2、编译代码
+Copy the generated product to the imported agora rtc sdk (note that there are two folders, x64, Win32)
 
-```shell
-./rtc/ci/build-[Platform].[sh|bat] [Arch] [Debug/Release]
+| SDK type | Generate product | Copy to SDK directory |
+| ---- | ---- | ---- |
+| Unity SDK |  build/windows/Win32/output/Release/AgoraRawDataPlugin.dll, build/windows/x64/output/Release/AgoraRawDataPlugin.dll | Assets/Agora-RTC-Plugin/Agora-Unity-RTC-SDK/Plugins/x86, Assets/Agora-RTC-Plugin/Agora-Unity-RTC-SDK/Plugins/x86_64 |
+| Electron SDK |  build/windows/Win32/output/Release/AgoraRawDataPlugin.dll, build/windows/x64/output/Release/AgoraRawDataPlugin.dll | Any path where the `ffi-napi` could load it |
+
+### Mac Platform
+
+Execute in the repository root directory:
+
+```sh
+sh scripts/build-mac.sh
 ```
 
-Platform:
+Copy the generated product to the already imported agora rtc sdk
 
-* Android
-* iOS
-* Mac
-* Windows
+| SDK type | Generate product | Copy to SDK directory |
+| ---- | ---- | ---- |
+| Unity SDK |  build/mac/MAC/output/Release/AgoraRawDataPluginUnity.bundle | Assets/Agora-RTC-Plugin/Agora-Unity-RTC-SDK/Plugins/macOS |
+| Electron SDK |  build/mac/MAC/output/Release/AgoraRawDataPlugin.dylib | Any path where the `ffi-napi` could load it |
 
-Arch:
+### iOS Platform
 
-* Android
-    * arm64-v8a
-    * armeabi-v7a
-    * x86
-    * x86_64
-* iOS
-    * OS64COMBINED
-    * SIMULATOR64
-* Mac
-    * MAC
-    * MAC_ARM64
-* Windows
-    * Win32
-    * x64
-  
-Output: `build/[Platform]/[Arch]/output/`
+Execute in the repository root directory:
 
-#### 3、UnitTest（仅支持桌面端）
+```sh
+sh scripts/build-ios.sh
+```
 
-上述步骤会生成 `IrisUnitTests` 可执行程序
+Copy the generated product to the already imported agora rtc sdk
 
-## 如何使用
+| SDK type | Generate product | Copy to SDK directory |
+| ---- | ---- | ---- |
+| Unity SDK |  build/ios/ALL_ARCHITECTURE/output/Release/AgoraRawDataPlugin.framework | Assets/Agora-RTC-Plugin/Agora-Unity-RTC-SDK/Plugins/iOS |
 
-* 查看 [include](./rtc/cxx/include) 目录, 入口头文件为 [iris_engine.h](rtc/cxx/include/iris_rtc_engine.h)
-* 查看代码示例 [test](rtc/cxx/test) 目录以参考实现，
+### Android Platform
 
-## 注意事项
+Execute in the repository root directory:
 
-* 上层框架使用 ApiType 和 Json 字符串与 Iris 通信，Iris 解析后与 Native RTC SDK 通信
-* 句柄使用 `uint64_t` 解析，Iris 会转换成 `void *`，所以上层需要转成 Number 类型
-* 所有参数名严格与 Native RTC SDK 对齐，关系到透传的 Json 字符串中的 key
+In mac platform:
+
+```sh
+sh scripts/build-android.sh
+```
+
+Copy the generated product to the imported agora rtc sdk (note that there are four folders here, namely x86, x86_64,
+armeabi-v7a, arm64-v8a)
+
+| SDK type | Generate product | Copy to SDK directory |
+| ---- | ---- | ---- |
+| Unity SDK |  build/android/ALL_ARCHITECTURE/output/Release/[x86_64 x86 armeabi-v7a arm64-v8a]/libAgoraRawDataPlugin.so | Assets/Agora-RTC-Plugin/Agora-Unity-RTC-SDK/Plugins/Android/AgoraRtcEngineKit.plugin/libs/[x86_64 x86 armeabi-v7a arm64-v8a] |
+
+## 3. Experience Demo
+
+You can run the built-in plug-in demo of the SDK. Experience the effect after the plug-in is
+turned on.
+
+| SDK type | Example Link |
+| ---- | ---- |
+| Unity SDK | https://github.com/AgoraIO-Extensions/Agora-Unity-Quickstart/blob/release%2F4.1.0/API-Example-Unity/Assets/API-Example/Examples/Advanced/Plugin/PluginSceneSample.cs |
+| Electron SDK | https://github.com/AgoraIO-Extensions/Electron-SDK/blob/release%2F4.1.0/example/src/renderer/examples/advanced/ProcessVideoRawData/ProcessVideoRawData.tsx |
