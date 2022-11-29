@@ -71,7 +71,6 @@ jobs:
       - uses: subosito/flutter-action@v2
         with:
           flutter-version: ${{ matrix.version }}
-      - run: flutter pub get
       - name: Run flutter build apk
         run: |
           cd frameworks/flutter/video_raw_data/example
