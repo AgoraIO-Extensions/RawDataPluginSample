@@ -70,13 +70,13 @@ jobs:
           java-version: '11'
       - uses: subosito/flutter-action@v2
         with:
+          cache: true
           flutter-version: ${{ matrix.version }}
       - name: Run flutter build apk
         run: |
-          cd frameworks/flutter/video_raw_data/example
           flutter pub get
           flutter build apk
-        working-directory: example
+        working-directory: frameworks/flutter/video_raw_data/example
 
   # build_android_ubuntu:
   #   name: Build Android on Ubuntu
