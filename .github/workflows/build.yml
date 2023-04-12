@@ -101,8 +101,8 @@ jobs:
             zip -r -y "$ZIP_FILE_NAME" $OUTPUT_ARTIFACTORY_NAME
           popd
 
-          lipo -remove arm64 build/mac/MAC/output/Release/AgoraRawDataPlugin.dylib -o ${OUTPUT_ARTIFACTORY_PATH}/VideoObserverPlugin_x64.dylib
-          lipo -remove x86_64 build/mac/MAC/output/Release/AgoraRawDataPlugin.dylib -o ${OUTPUT_ARTIFACTORY_PATH}/VideoObserverPlugin_arm64.dylib
+          lipo -remove arm64 build/mac/MAC/output/Release/AgoraRawDataPlugin.dylib -o output/VideoObserverPlugin_x64.dylib
+          lipo -remove x86_64 build/mac/MAC/output/Release/AgoraRawDataPlugin.dylib -o output/VideoObserverPlugin_arm64.dylib
 
       - name: Release
         uses: softprops/action-gh-release@v1
@@ -136,8 +136,8 @@ jobs:
             tar.exe -a -c -f  "$ZIP_FILE_NAME" $OUTPUT_ARTIFACTORY_NAME
           popd
 
-          cp build/windows/Win32/output/Release/AgoraRawDataPlugin.dll ${OUTPUT_ARTIFACTORY_PATH}/VideoObserverPlugin_ia32.dll
-          cp build/windows/x64/output/Release/AgoraRawDataPlugin.dll ${OUTPUT_ARTIFACTORY_PATH}/VideoObserverPlugin_x64.dll
+          cp build/windows/Win32/output/Release/AgoraRawDataPlugin.dll output/VideoObserverPlugin_ia32.dll
+          cp build/windows/x64/output/Release/AgoraRawDataPlugin.dll output/VideoObserverPlugin_x64.dll
 
       - name: Release
         uses: softprops/action-gh-release@v1
