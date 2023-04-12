@@ -1,7 +1,6 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
-set -e
-set -x
+set -ex
 
 ROOT_PATH=$(pwd)
 

@@ -2,11 +2,10 @@ name: CI
 
 on:
   push:
-    branches: 
-      - main
-      - release/**
+    tags:
+      - "v*.*.*"
   pull_request:
-    branches: 
+    branches:
       - main
       - release/**
 
@@ -40,23 +39,10 @@ jobs:
             zip -r -y "$ZIP_FILE_NAME" $OUTPUT_ARTIFACTORY_NAME
           popd
 
-      - name: Get current date
-        id: date
-        run: |
-          VERSION=$(bash scripts/grep_version.sh)
-          DATE=$(date '+%Y%m%d')
-          BUILD_NAME="${VERSION}_${DATE}"
-          echo "::set-output name=date::${BUILD_NAME}"
-      - name: Test with environment variables
-        run: echo $BUILD_NAME
-        env:
-          BUILD_NAME: artifact_${{ steps.date.outputs.date }}
-
       - name: Release
         uses: softprops/action-gh-release@v1
-        if: ${{ github.event_name == 'push' }}
+        if: startsWith(github.ref, 'refs/tags/')
         with:
-          tag_name: artifact_${{ steps.date.outputs.date }}
           files: "output/*.zip"
 
   cmake_build_ios:
@@ -81,23 +67,10 @@ jobs:
             zip -r -y "$ZIP_FILE_NAME" $OUTPUT_ARTIFACTORY_NAME
           popd
 
-      - name: Get current date
-        id: date
-        run: |
-          VERSION=$(bash scripts/grep_version.sh)
-          DATE=$(date '+%Y%m%d')
-          BUILD_NAME="${VERSION}_${DATE}"
-          echo "::set-output name=date::${BUILD_NAME}"
-      - name: Test with environment variables
-        run: echo $BUILD_NAME
-        env:
-          BUILD_NAME: artifact_${{ steps.date.outputs.date }}
-
       - name: Release
         uses: softprops/action-gh-release@v1
-        if: ${{ github.event_name == 'push' }}
+        if: startsWith(github.ref, 'refs/tags/')
         with:
-          tag_name: artifact_${{ steps.date.outputs.date }}
           files: "output/*.zip"
 
   cmake_build_macos:
@@ -121,23 +94,11 @@ jobs:
           pushd output
             zip -r -y "$ZIP_FILE_NAME" $OUTPUT_ARTIFACTORY_NAME
           popd
-      - name: Get current date
-        id: date
-        run: |
-          VERSION=$(bash scripts/grep_version.sh)
-          DATE=$(date '+%Y%m%d')
-          BUILD_NAME="${VERSION}_${DATE}"
-          echo "::set-output name=date::${BUILD_NAME}"
-      - name: Test with environment variables
-        run: echo $BUILD_NAME
-        env:
-          BUILD_NAME: artifact_${{ steps.date.outputs.date }}
 
       - name: Release
         uses: softprops/action-gh-release@v1
-        if: ${{ github.event_name == 'push' }}
+        if: startsWith(github.ref, 'refs/tags/')
         with:
-          tag_name: artifact_${{ steps.date.outputs.date }}
           files: "output/*.zip"
 
   cmake_build_windows:
@@ -149,12 +110,14 @@ jobs:
       - name: Run cmake build windows
         shell: bash
         run: |
+          scripts/build-windows.bat
+
           OUTPUT_ARTIFACTORY_NAME="VideoObserver_Plugin_for_Windows"
           OUTPUT_ARTIFACTORY_PATH=output/${OUTPUT_ARTIFACTORY_NAME}
 
           mkdir -p ${OUTPUT_ARTIFACTORY_PATH}
-
-          bash scripts/build-windows.sh $(pwd) ${OUTPUT_ARTIFACTORY_PATH}
+          cp -RP build/windows/Win32/output/Release/ ${OUTPUT_ARTIFACTORY_PATH}
+          cp -RP build/windows/x64/output/Release/ ${OUTPUT_ARTIFACTORY_PATH}
 
           ZIP_FILE_NAME="${OUTPUT_ARTIFACTORY_NAME}.zip"
 
@@ -162,22 +125,8 @@ jobs:
             tar.exe -a -c -f  "$ZIP_FILE_NAME" $OUTPUT_ARTIFACTORY_NAME
           popd
 
-      - name: Get current date
-        id: date
-        shell: bash
-        run: |
-          VERSION=$(bash scripts/grep_version.sh)
-          DATE=$(date '+%Y%m%d')
-          BUILD_NAME="${VERSION}_${DATE}"
-          echo "::set-output name=date::${BUILD_NAME}"
-      - name: Test with environment variables
-        run: echo $BUILD_NAME
-        env:
-          BUILD_NAME: artifact_${{ steps.date.outputs.date }}
-
       - name: Release
         uses: softprops/action-gh-release@v1
-        if: ${{ github.event_name == 'push' }}
+        if: startsWith(github.ref, 'refs/tags/')
         with:
-          tag_name: artifact_${{ steps.date.outputs.date }}
           files: "output/*.zip"

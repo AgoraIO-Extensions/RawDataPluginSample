@@ -30,7 +30,7 @@ goto:eof
 
 :buildALL
     set buildType=%~1
-    echo "start build Wind32 ----------"
+    echo "start build Win32 ----------"
     call:build Win32 %buildType%
     echo "start build x64 ----------"
     call:build x64 %buildType%
