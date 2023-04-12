@@ -28,6 +28,7 @@ bool VideoFrameObserver::DisablePlugin() {
 }
 
 bool VideoFrameObserver::onCaptureVideoFrame(
+    agora::rtc::VIDEO_SOURCE_TYPE sourceType,
     agora::media::base::VideoFrame &videoFrame) {
   int length = videoFrame.uStride * videoFrame.height * 0.5;
   memset(videoFrame.uBuffer, 128, length);
@@ -35,17 +36,8 @@ bool VideoFrameObserver::onCaptureVideoFrame(
   return true;
 }
 
-bool VideoFrameObserver::onSecondaryCameraCaptureVideoFrame(
-    agora::media::base::VideoFrame &videoFrame) {
-  return true;
-}
-
-bool VideoFrameObserver::onScreenCaptureVideoFrame(
-    agora::media::base::VideoFrame &videoFrame) {
-  return true;
-}
-
-bool VideoFrameObserver::onSecondaryScreenCaptureVideoFrame(
+bool VideoFrameObserver::onPreEncodeVideoFrame(
+    agora::rtc::VIDEO_SOURCE_TYPE sourceType,
     agora::media::base::VideoFrame &videoFrame) {
   return true;
 }
@@ -55,33 +47,13 @@ bool VideoFrameObserver::onMediaPlayerVideoFrame(
   return true;
 }
 
-bool VideoFrameObserver::onRenderVideoFrame(const char *channelId,
-                                            agora::rtc::uid_t remoteUid,
-                                            VideoFrame &videoFrame) {
+bool VideoFrameObserver::onRenderVideoFrame(
+    const char *channelId, agora::rtc::uid_t remoteUid,
+    agora::media::base::VideoFrame &videoFrame) {
   return true;
 }
 
 bool VideoFrameObserver::onTranscodedVideoFrame(
-    agora::media::base::VideoFrame &videoFrame) {
-  return true;
-}
-
-bool VideoFrameObserver::onPreEncodeVideoFrame(
-    agora::media::base::VideoFrame &videoFrame) {
-  return true;
-}
-
-bool VideoFrameObserver::onSecondaryPreEncodeCameraVideoFrame(
-    agora::media::base::VideoFrame &videoFrame) {
-  return true;
-}
-
-bool VideoFrameObserver::onPreEncodeScreenVideoFrame(
-    agora::media::base::VideoFrame &videoFrame) {
-  return true;
-}
-
-bool VideoFrameObserver::onSecondaryPreEncodeScreenVideoFrame(
     agora::media::base::VideoFrame &videoFrame) {
   return true;
 }
@@ -94,7 +66,5 @@ VideoFrameObserver::getVideoFrameProcessMode() {
 
 agora::media::base::VIDEO_PIXEL_FORMAT
 VideoFrameObserver::getVideoFormatPreference() {
-  agora::media::base::VIDEO_PIXEL_FORMAT format =
-      agora::media::base::VIDEO_PIXEL_I420;
-  return format;
+  return agora::media::base::VIDEO_PIXEL_I420;
 }
