@@ -21,7 +21,7 @@ class PLUGIN_CPP_API VideoFrameObserver
                                int mediaPlayerId) override;
 
   bool onRenderVideoFrame(const char *channelId, agora::rtc::uid_t remoteUid,
-                          VideoFrame &videoFrame) = 0;
+                          VideoFrame &videoFrame) override;
 
   bool onTranscodedVideoFrame(VideoFrame &videoFrame) override;
 
