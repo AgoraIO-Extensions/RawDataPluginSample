@@ -1718,9 +1718,9 @@ enum CODEC_CAP_MASK {
 /** The codec support information. */
 struct CodecCapInfo {
   /** The codec type: #VIDEO_CODEC_TYPE. */
-  VIDEO_CODEC_TYPE codec_type;
+  VIDEO_CODEC_TYPE codecType;
   /** The codec support flag. */
-  int codec_cap_mask;
+  int codecCapMask;
 };
 
 /**

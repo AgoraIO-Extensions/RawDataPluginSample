@@ -5,7 +5,8 @@
 #include "plugin_base.h"
 
 class PLUGIN_CPP_API VideoFrameObserver
-    : public agora::media::IVideoFrameObserver {
+    : public agora::media::IVideoFrameObserver,
+      public IPlugin {
  public:
   explicit VideoFrameObserver(agora::rtc::IRtcEngine *rtc_engine);
 
@@ -30,9 +31,9 @@ class PLUGIN_CPP_API VideoFrameObserver
   agora::media::base::VIDEO_PIXEL_FORMAT getVideoFormatPreference() override;
 
  public:
-  bool EnablePlugin();
+  bool EnablePlugin() override;
 
-  bool DisablePlugin();
+  bool DisablePlugin() override;
 
  private:
   agora::rtc::IRtcEngine *rtc_engine_ = nullptr;

@@ -482,7 +482,7 @@ class IRtcEngineEventHandlerEx : public IRtcEngineEventHandler {
   - true: The remote user has enabled video.
   - false: The remote user has disabled video.
   */
- virtual void onUserEnableVideo(const RtcConnection& connection, uid_t remoteUid, bool enabled) __deprecated {
+ virtual void onUserEnableVideo(const RtcConnection& connection, uid_t remoteUid, bool enabled) {
     (void)connection;
     (void)remoteUid;
     (void)enabled;

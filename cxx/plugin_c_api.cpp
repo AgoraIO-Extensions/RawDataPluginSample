@@ -1,9 +1,10 @@
 #include "plugin_c_api.h"
+#include "AudioFrameObserver.h"
 #include "VideoFrameObserver.h"
 
 PLUGIN_API bool EnablePlugin(PluginPtr plugin) {
   if (plugin) {
-    return ((VideoFrameObserver *) plugin)->EnablePlugin();
+    return ((IPlugin *) plugin)->EnablePlugin();
   } else {
     return false;
   }
@@ -11,7 +12,7 @@ PLUGIN_API bool EnablePlugin(PluginPtr plugin) {
 
 PLUGIN_API bool DisablePlugin(PluginPtr plugin) {
   if (plugin) {
-    return ((VideoFrameObserver *) plugin)->DisablePlugin();
+    return ((IPlugin *) plugin)->DisablePlugin();
   } else {
     return false;
   }
@@ -20,11 +21,17 @@ PLUGIN_API bool DisablePlugin(PluginPtr plugin) {
 PLUGIN_API PluginPtr CreateSamplePlugin(void *rtcEnginePtr) {
   auto *plugin =
       new VideoFrameObserver((agora::rtc::IRtcEngine *) rtcEnginePtr);
-  return (void *) plugin;
+  return (IPlugin *) plugin;
 }
 
 PLUGIN_API void DestroySamplePlugin(PluginPtr plugin) {
-  delete (VideoFrameObserver *) plugin;
+  delete (IPlugin *) plugin;
+}
+
+PLUGIN_API PluginPtr CreateSampleAudioPlugin(void *rtcEnginePtr) {
+  auto *plugin =
+      new AudioFrameObserver((agora::rtc::IRtcEngine *) rtcEnginePtr);
+  return (IPlugin *) plugin;
 }
 
 #if defined(__ANDROID__)
@@ -55,5 +62,11 @@ Java_io_agora_rtc_plugin_AgoraRawDataPlugin_disablePlugin(JNIEnv *env,
                                                           jobject thiz,
                                                           jlong handle) {
   return DisablePlugin((PluginPtr) handle);
+}
+
+extern "C" JNIEXPORT jlong JNICALL
+Java_io_agora_rtc_plugin_AgoraRawDataPlugin_createSampleAudioPlugin(
+    JNIEnv *env, jobject thiz, jlong native_handle) {
+  return (jlong) CreateSampleAudioPlugin((void *) native_handle);
 }
 #endif

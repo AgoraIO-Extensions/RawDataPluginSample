@@ -1107,7 +1107,7 @@ struct ChannelMediaOptions {
   * - `true`: Publish the video track of local transcoded video track.
   * - `false`: (Default) Do not publish the local transcoded video track.
   */
-  Optional<bool> publishTrancodedVideoTrack;
+  Optional<bool> publishTranscodedVideoTrack;
   /**
    * Whether to automatically subscribe to all remote audio streams when the user joins a channel:
    * - `true`: (Default) Subscribe to all remote audio streams.
@@ -1218,7 +1218,7 @@ struct ChannelMediaOptions {
       SET_FROM(publishScreenTrack);
       SET_FROM(publishSecondaryScreenTrack);
 #endif
-      SET_FROM(publishTrancodedVideoTrack);
+      SET_FROM(publishTranscodedVideoTrack);
       SET_FROM(publishCustomAudioTrack);
       SET_FROM(publishCustomAudioTrackId);
       SET_FROM(publishCustomVideoTrack);
@@ -1260,7 +1260,7 @@ struct ChannelMediaOptions {
       ADD_COMPARE(publishScreenTrack);
       ADD_COMPARE(publishSecondaryScreenTrack);
 #endif
-      ADD_COMPARE(publishTrancodedVideoTrack);
+      ADD_COMPARE(publishTranscodedVideoTrack);
       ADD_COMPARE(publishCustomAudioTrack);
       ADD_COMPARE(publishCustomAudioTrackId);
       ADD_COMPARE(publishCustomVideoTrack);
@@ -1305,7 +1305,7 @@ struct ChannelMediaOptions {
         REPLACE_BY(publishScreenTrack);
         REPLACE_BY(publishSecondaryScreenTrack);
 #endif
-        REPLACE_BY(publishTrancodedVideoTrack);
+        REPLACE_BY(publishTranscodedVideoTrack);
         REPLACE_BY(publishCustomAudioTrack);
         REPLACE_BY(publishCustomAudioTrackId);
         REPLACE_BY(publishCustomVideoTrack);
@@ -1961,7 +1961,7 @@ class IRtcEngineEventHandler {
   - true: The remote user has enabled video.
   - false: The remote user has disabled video.
   */
-  virtual void onUserEnableVideo(uid_t uid, bool enabled) __deprecated {
+  virtual void onUserEnableVideo(uid_t uid, bool enabled) {
     (void)uid;
     (void)enabled;
   }
@@ -8186,9 +8186,10 @@ class IRtcEngine : public agora::base::IEngineBase {
   virtual int enableInstantMediaRendering() = 0;
 
   /**
-   * Return current NTP(Network Time Protocol) time in milliseconds.
+   * Return current NTP(unix timestamp) time in milliseconds.
    */
-  virtual long getNtpTimeInMs() = 0;
+  virtual uint64_t getNtpWallTimeInMs() = 0;
+
 };
 
 class AAudioDeviceManager : public agora::util::AutoPtr<IAudioDeviceManager> {
