@@ -30,6 +30,7 @@ bool VideoFrameObserver::DisablePlugin() {
 bool VideoFrameObserver::onCaptureVideoFrame(
     agora::rtc::VIDEO_SOURCE_TYPE sourceType,
     agora::media::base::VideoFrame &videoFrame) {
+  // set the video frame to gray
   int length = videoFrame.uStride * videoFrame.height * 0.5;
   memset(videoFrame.uBuffer, 128, length);
   memset(videoFrame.vBuffer, 128, length);

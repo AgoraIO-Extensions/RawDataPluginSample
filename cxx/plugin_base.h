@@ -54,3 +54,12 @@
 #define PLUGIN_CPP_API
 #define PLUGIN_CALL
 #endif
+
+class IPlugin {
+ public:
+  virtual ~IPlugin() = default;
+
+  virtual bool EnablePlugin() = 0;
+
+  virtual bool DisablePlugin() = 0;
+};
