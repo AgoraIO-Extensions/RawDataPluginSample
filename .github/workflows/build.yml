@@ -6,6 +6,9 @@ concurrency:
 
 on:
   push:
+    branches: 
+      - main
+      - release/**
     tags:
       - v*.*.**
   pull_request:
@@ -49,6 +52,14 @@ jobs:
         with:
           files: |
             output/*.zip
+      
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        if: ${{ github.event_name == 'push' }}
+        with:
+          draft: true
+          files: |
+            output/*.zip
 
   cmake_build_ios:
     name: Build ios
@@ -76,6 +87,14 @@ jobs:
         uses: softprops/action-gh-release@v1
         if: startsWith(github.ref, 'refs/tags/')
         with:
+          files: |
+            output/*.zip
+            
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        if: ${{ github.event_name == 'push' }}
+        with:
+          draft: true
           files: |
             output/*.zip
 
@@ -111,6 +130,15 @@ jobs:
           files: |
             output/*.zip
             output/*.dylib
+            
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        if: ${{ github.event_name == 'push' }}
+        with:
+          draft: true
+          files: |
+            output/*.zip
+            output/*.dylib
 
   cmake_build_windows:
     name: Build windows
@@ -143,6 +171,15 @@ jobs:
         uses: softprops/action-gh-release@v1
         if: startsWith(github.ref, 'refs/tags/')
         with:
+          files: |
+            output/*.zip
+            output/*.dll
+            
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        if: ${{ github.event_name == 'push' }}
+        with:
+          draft: true
           files: |
             output/*.zip
             output/*.dll
