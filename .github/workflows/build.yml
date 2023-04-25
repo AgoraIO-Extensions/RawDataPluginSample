@@ -6,7 +6,7 @@ concurrency:
 
 on:
   push:
-    branches: 
+    branches:
       - main
       - release/**
     tags:
@@ -52,7 +52,7 @@ jobs:
         with:
           files: |
             output/*.zip
-      
+
       - name: Release
         uses: softprops/action-gh-release@v1
         if: ${{ github.event_name == 'push' }}
@@ -63,8 +63,7 @@ jobs:
 
   cmake_build_ios:
     name: Build ios
-    runs-on: macos-11
-    timeout-minutes: 60
+    runs-on: macos-latest
     steps:
       - uses: actions/checkout@v3
       - name: Run cmake build ios
@@ -89,7 +88,7 @@ jobs:
         with:
           files: |
             output/*.zip
-            
+
       - name: Release
         uses: softprops/action-gh-release@v1
         if: ${{ github.event_name == 'push' }}
@@ -100,8 +99,7 @@ jobs:
 
   cmake_build_macos:
     name: Build macos
-    runs-on: macos-11
-    timeout-minutes: 60
+    runs-on: macos-latest
     steps:
       - uses: actions/checkout@v3
       - name: Run cmake build macos
@@ -130,7 +128,7 @@ jobs:
           files: |
             output/*.zip
             output/*.dylib
-            
+
       - name: Release
         uses: softprops/action-gh-release@v1
         if: ${{ github.event_name == 'push' }}
@@ -142,8 +140,7 @@ jobs:
 
   cmake_build_windows:
     name: Build windows
-    runs-on: windows-2019
-    timeout-minutes: 60
+    runs-on: windows-latest
     steps:
       - uses: actions/checkout@v3
       - name: Run cmake build windows
@@ -174,7 +171,7 @@ jobs:
           files: |
             output/*.zip
             output/*.dll
-            
+
       - name: Release
         uses: softprops/action-gh-release@v1
         if: ${{ github.event_name == 'push' }}
@@ -183,3 +180,45 @@ jobs:
           files: |
             output/*.zip
             output/*.dll
+
+  build_flutter_apple:
+    name: Build flutter
+    runs-on: macos-latest
+    if: ${{ github.event_name == 'pull_request' }}
+    strategy:
+      matrix:
+        platform: ["ios", "macos"]
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: 3.0.0
+          cache: true
+
+      - run: flutter pub get
+        working-directory: frameworks/flutter/video_raw_data
+
+      - run: flutter build ${{ matrix.platform }} --no-codesign
+        working-directory: frameworks/flutter/video_raw_data/example
+
+  build_flutter_other:
+    name: Build flutter
+    runs-on: windows-latest
+    if: ${{ github.event_name == 'pull_request' }}
+    strategy:
+      matrix:
+        platform: ["apk", "windows"]
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: 3.0.0
+          cache: true
+
+      - run: flutter pub get
+        working-directory: frameworks/flutter/video_raw_data
+
+      - run: flutter build ${{ matrix.platform }}
+        working-directory: frameworks/flutter/video_raw_data/example
