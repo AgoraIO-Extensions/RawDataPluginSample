@@ -16,7 +16,7 @@ set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 set(PLUGIN_NAME "video_raw_data_plugin")
 
 
-set(DOWNLOAD_URL "https://github.com/AgoraIO-Extensions/RawDataPluginSample/releases/download/v4.2.0/VideoObserver_Plugin_for_Windows.zip")
+set(DOWNLOAD_URL "https://github.com/AgoraIO-Extensions/RawDataPluginSample/releases/download/v4.2.0-dev.8/VideoObserver_Plugin_for_Windows.zip")
 set(DOWNLOAD_PATH "${CMAKE_CURRENT_SOURCE_DIR}/third_party")
 set(VIDEO_RAW_DATA_DLL_PATH "${DOWNLOAD_PATH}/VideoObserver_Plugin_for_Windows/x64")
 
