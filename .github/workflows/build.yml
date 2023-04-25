@@ -200,6 +200,11 @@ jobs:
         working-directory: frameworks/flutter/video_raw_data
 
       - run: flutter build ${{ matrix.platform }} --no-codesign
+        if: ${{ matrix.platform == 'ios' }}
+        working-directory: frameworks/flutter/video_raw_data/example
+
+      - run: flutter build ${{ matrix.platform }}
+        if: ${{ matrix.platform == 'macos' }}
         working-directory: frameworks/flutter/video_raw_data/example
 
   build_flutter_other:
