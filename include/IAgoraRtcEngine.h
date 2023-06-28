@@ -4786,29 +4786,16 @@ class IRtcEngine : public agora::base::IEngineBase {
   virtual int destroyMediaPlayer(agora_refptr<IMediaPlayer> media_player) = 0;
 
   /**
-   * Creates a local user media recorder object and return its pointer.
+   * Creates a media recorder object and return its pointer.
    *
-   * @param connection The RtcConnection object. It contains user ID and channel name of local user.
+   * @param connection The RtcConnection object. It contains user ID and channel name of user.
    * 
    * @return
    * - The pointer to \ref rtc::IMediaRecorder "IMediaRecorder",
    *   if the method call succeeds.
    * - The empty pointer NULL, if the method call fails.
    */
-  virtual agora_refptr<IMediaRecorder> createLocalMediaRecorder(const RtcConnection& connection) = 0;
-
-  /**
-   * Creates a remote user media recorder object and return its pointer.
-   *
-   * @param channelId The channel name in which the remote user joined in
-   * @param uid The user ID of the remote user that you want to record.
-   * 
-   * @return
-   * - The pointer to \ref rtc::IMediaRecorder "IMediaRecorder",
-   *   if the method call succeeds.
-   * - The empty pointer NULL, if the method call fails.
-   */
-  virtual agora_refptr<IMediaRecorder> createRemoteMediaRecorder(const char* channelId, uid_t uid) = 0;
+  virtual agora_refptr<IMediaRecorder> createMediaRecorder(const RecorderStreamInfo& info) = 0;
 
   /**
    * Destroy a media recorder object.
@@ -6927,7 +6914,7 @@ class IRtcEngine : public agora::base::IEngineBase {
   virtual int updateScreenCapture(const ScreenCaptureParameters2& captureParams) = 0;
     
    /**
-   * Queries the ability of screen sharing to support the minimum frame rate.
+   * Queries the ability of screen sharing to support the maximum frame rate.
    *
    * @since v4.2.0
    * 

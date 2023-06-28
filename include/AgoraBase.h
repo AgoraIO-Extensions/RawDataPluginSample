@@ -2697,7 +2697,7 @@ enum LOCAL_VIDEO_STREAM_ERROR {
   /**
    * 5: The local video encoder is not supported.
    */
-  LOCAL_VIDEO_STREAM_ERROR_CODEC_NOT_SUPPORT = 5,
+  LOCAL_VIDEO_STREAM_ERROR_ENCODE_FAILURE = 5,
   /**
    * 6: (iOS only) The app is in the background. Remind the user that video capture cannot be
    * performed normally when the app is in the background.
@@ -5583,7 +5583,7 @@ struct EchoTestConfiguration {
    : view(v), enableAudio(ea), enableVideo(ev), token(t), channelId(c), intervalInSeconds(is) {}
 
   EchoTestConfiguration()
-   : view(OPTIONAL_NULLPTR), enableAudio(true), enableVideo(true), token(OPTIONAL_NULLPTR), channelId(OPTIONAL_NULLPTR), intervalInSeconds(10) {}
+   : view(OPTIONAL_NULLPTR), enableAudio(true), enableVideo(true), token(OPTIONAL_NULLPTR), channelId(OPTIONAL_NULLPTR), intervalInSeconds(2) {}
 };
 
 /**
@@ -5837,6 +5837,21 @@ enum CONFIG_FETCH_TYPE {
    * 2: Fetch config when joining channel with channel info, such as channel name and uid.
    */
   CONFIG_FETCH_TYPE_JOIN_CHANNEL = 2,
+};
+
+/**
+ * media recorder source stream information
+ */
+struct RecorderStreamInfo {
+    /**
+     * The channel ID of the video track.
+     */
+    const char* channelId;
+    /**
+     * The user ID.
+     */
+    uid_t uid;
+    RecorderStreamInfo() : channelId(NULL), uid(0) {}
 };
 
 }  // namespace rtc

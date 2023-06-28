@@ -82,3 +82,5 @@ fabric.properties
 build/
 third_party/agora/dcg/libs/
 third_party/agora/libs/
+
+.gradle

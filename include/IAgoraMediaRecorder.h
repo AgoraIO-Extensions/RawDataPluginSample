@@ -35,17 +35,12 @@ class IMediaRecorder : public RefCountInterface {
    *
    * @since v4.0.0
    *
-   * After successfully calling \ref IRtcEngine::createLocalMediaRecorder "createLocalMediaRecorder" to get the media recorder object
+   * After successfully calling \ref IRtcEngine::createMediaRecorder "createMediaRecorder" to get the media recorder object
    * , you can call this method to enable the recording of the local audio and video.
    *
    * This method can record the following content:
    * - The audio captured by the local microphone and encoded in AAC format.
    * - The video captured by the local camera and encoded by the SDK.
-   *
-   * After successfully calling \ref IRtcEngine::createLocalMediaRecorder "createLocalMediaRecorder" to get the media recorder object
-   * , you can call this method to enable the recording of the remote audio and video.
-   * 
-   * This method can record the following content:
    * - The audio received from remote users and encoded in AAC format.
    * - The video received from remote users.
    * 
@@ -68,7 +63,7 @@ class IMediaRecorder : public RefCountInterface {
    *      - The specified format of the recording file is supported.
    *      - The maximum recording duration is correctly set.
    *      - During remote recording, ensure the channel ID and user ID After calling \ref 
-   *        IRtcEngine::createLocalMediaRecorder did join the channel.
+   *        IRtcEngine::createMediaRecorder did join the channel.
    *    - `-4(ERR_NOT_SUPPORTED)`: IRtcEngine does not support the request due to one of the following reasons:
    *      - The recording is ongoing.
    *      - The recording stops because an error occurs.
