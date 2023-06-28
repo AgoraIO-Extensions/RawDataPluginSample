@@ -381,6 +381,8 @@ public:
   /**
     * get sdk version and build number of player SDK.
     * @return String of the SDK version.
+    * 
+    * @deprecated This method is deprecated.
    */
   virtual const char* getPlayerSdkVersion() = 0;
 
