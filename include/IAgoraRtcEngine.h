@@ -1029,10 +1029,22 @@ struct ChannelMediaOptions {
   Optional<bool> publishCameraTrack;
   /**
    * Whether to publish the video of the secondary camera track.
-   * - `true`: (Default) Publish the video track of the secondary camera capturer.
-   * - `false`: Do not publish the video track of the secondary camera capturer.
+   * - `true`: Publish the video track of the secondary camera capturer.
+   * - `false`: (Default) Do not publish the video track of the secondary camera capturer.
    */
   Optional<bool> publishSecondaryCameraTrack;
+  /**
+   * Whether to publish the video of the third camera track.
+   * - `true`:  Publish the video track of the third camera capturer.
+   * - `false`: (Default) Do not publish the video track of the third camera capturer.
+   */
+  Optional<bool> publishThirdCameraTrack;
+  /**
+   * Whether to publish the video of the fourth camera track.
+   * - `true`:  Publish the video track of the fourth camera capturer.
+   * - `false`: (Default) Do not publish the video track of the fourth camera capturer.
+   */
+  Optional<bool> publishFourthCameraTrack;
   /**
    * Whether to publish the recorded audio.
    * - `true`: (Default) Publish the recorded audio.
@@ -1066,6 +1078,18 @@ struct ChannelMediaOptions {
    * - false: (Default) Do not publish the captured video from the secondary screen.
    */
   Optional<bool> publishSecondaryScreenTrack;
+  /**
+   * Whether to publish the captured video from the third screen:
+   * - true: Publish the captured video from the third screen.
+   * - false: (Default) Do not publish the captured video from the third screen.
+   */
+  Optional<bool> publishThirdScreenTrack;
+  /**
+   * Whether to publish the captured video from the fourth screen:
+   * - true: Publish the captured video from the fourth screen.
+   * - false: (Default) Do not publish the captured video from the fourth screen.
+   */
+  Optional<bool> publishFourthScreenTrack;
   #endif
 
   /**
@@ -1210,6 +1234,8 @@ struct ChannelMediaOptions {
 
       SET_FROM(publishCameraTrack);
       SET_FROM(publishSecondaryCameraTrack);
+      SET_FROM(publishThirdCameraTrack);
+      SET_FROM(publishFourthCameraTrack);
       SET_FROM(publishMicrophoneTrack);
 #if defined(__ANDROID__) || (defined(TARGET_OS_IPHONE) && TARGET_OS_IPHONE)
       SET_FROM(publishScreenCaptureVideo);
@@ -1217,6 +1243,8 @@ struct ChannelMediaOptions {
 #else
       SET_FROM(publishScreenTrack);
       SET_FROM(publishSecondaryScreenTrack);
+      SET_FROM(publishThirdScreenTrack);
+      SET_FROM(publishFourthScreenTrack);
 #endif
       SET_FROM(publishTranscodedVideoTrack);
       SET_FROM(publishCustomAudioTrack);
@@ -1252,6 +1280,8 @@ struct ChannelMediaOptions {
       BEGIN_COMPARE();
       ADD_COMPARE(publishCameraTrack);
       ADD_COMPARE(publishSecondaryCameraTrack);
+      ADD_COMPARE(publishThirdCameraTrack);
+      ADD_COMPARE(publishFourthCameraTrack);
       ADD_COMPARE(publishMicrophoneTrack);
 #if defined(__ANDROID__) || (defined(TARGET_OS_IPHONE) && TARGET_OS_IPHONE)
       ADD_COMPARE(publishScreenCaptureVideo);
@@ -1259,6 +1289,8 @@ struct ChannelMediaOptions {
 #else
       ADD_COMPARE(publishScreenTrack);
       ADD_COMPARE(publishSecondaryScreenTrack);
+      ADD_COMPARE(publishThirdScreenTrack);
+      ADD_COMPARE(publishFourthScreenTrack);
 #endif
       ADD_COMPARE(publishTranscodedVideoTrack);
       ADD_COMPARE(publishCustomAudioTrack);
@@ -1297,6 +1329,8 @@ struct ChannelMediaOptions {
 
         REPLACE_BY(publishCameraTrack);
         REPLACE_BY(publishSecondaryCameraTrack);
+        REPLACE_BY(publishThirdCameraTrack);
+        REPLACE_BY(publishFourthCameraTrack);
         REPLACE_BY(publishMicrophoneTrack);
 #if defined(__ANDROID__) || (defined(TARGET_OS_IPHONE) && TARGET_OS_IPHONE)
         REPLACE_BY(publishScreenCaptureVideo);
@@ -1304,6 +1338,8 @@ struct ChannelMediaOptions {
 #else
         REPLACE_BY(publishScreenTrack);
         REPLACE_BY(publishSecondaryScreenTrack);
+        REPLACE_BY(publishThirdScreenTrack);
+        REPLACE_BY(publishFourthScreenTrack);
 #endif
         REPLACE_BY(publishTranscodedVideoTrack);
         REPLACE_BY(publishCustomAudioTrack);
@@ -1334,16 +1370,6 @@ struct ChannelMediaOptions {
   }
 };
 
-/** The local  proxy mode type. */
-enum LOCAL_PROXY_MODE {
-  /** 0: Connect local proxy with high priority, if not connected to local proxy, fallback to sdrtn.
-   */
-  ConnectivityFirst = 0,
-  /** 1: Only connect local proxy
-   */
-  LocalOnly = 1,
-};
-
 enum PROXY_TYPE {
   /** 0: Do not use the cloud proxy.
    */
@@ -1368,57 +1394,9 @@ enum PROXY_TYPE {
   HTTPS_PROXY_TYPE = 6,
 };
 
-struct LogUploadServerInfo {
-  /** Log upload server domain
-   */
-  const char* serverDomain;
-  /** Log upload server path
-   */
-  const char* serverPath;
-  /** Log upload server port
-   */
-  int serverPort;
-  /** Whether to use HTTPS request:
-    - true: Use HTTPS request
-    - fasle: Use HTTP request
-   */
-  bool serverHttps;
-
-  LogUploadServerInfo() : serverDomain(NULL), serverPath(NULL), serverPort(0), serverHttps(true) {}
-
-  LogUploadServerInfo(const char* domain, const char* path, int port, bool https) : serverDomain(domain), serverPath(path), serverPort(port), serverHttps(https) {}
-};
-
-struct AdvancedConfigInfo {
-  /** Log upload server
-   */
-  LogUploadServerInfo logUploadServer;
-};
-
-struct LocalAccessPointConfiguration {
-  /** Local access point IP address list.
-   */
-  const char** ipList;
-  /** The number of local access point IP address.
-   */
-  int ipListSize;
-  /** Local access point domain list.
-   */
-  const char** domainList;
-  /** The number of local access point domain.
-   */
-  int domainListSize;
-  /** Certificate domain name installed on specific local access point. pass "" means using sni domain on specific local access point
-   *  SNI(Server Name Indication) is an extension to the TLS protocol.
-   */
-  const char* verifyDomainName;
-  /** Local proxy connection mode, connectivity first or local only.
-   */
-  LOCAL_PROXY_MODE mode;
-  /** Local proxy connection, advanced Config info.
-   */
-  AdvancedConfigInfo advancedConfig;
-  LocalAccessPointConfiguration() : ipList(NULL), ipListSize(0), domainList(NULL), domainListSize(0), verifyDomainName(NULL), mode(ConnectivityFirst) {}
+enum FeatureType {
+  VIDEO_VIRTUAL_BACKGROUND = 1,
+  VIDEO_BEAUTY_EFFECT = 2,
 };
 
 /**
@@ -3549,13 +3527,116 @@ class IRtcEngine : public agora::base::IEngineBase {
   /**
    * Queries the capacity of the current device codec.
    *
-   * @param codec_info An array of the codec cap information: CodecCapInfo.
+   * @param codecInfo An array of the codec cap information: CodecCapInfo.
    * @param size The array size.
    * @return 
    * 0: Success.
    * < 0: Failure.
    */
   virtual int queryCodecCapability(CodecCapInfo* codecInfo, int& size) = 0;
+
+  /**
+   * Preload a channel.
+   *
+   * This method enables users to preload a channel.
+   *
+   * A successful call of this method will reduce the time of joining the same channel.
+   *
+   * @since v4.2.2
+   * @note
+   *  1. The SDK supports preloading up to 20 channels. Once the preloaded channels exceed the limit, the SDK will keep the latest 20 available.
+   *  2. Renew the token of the preloaded channel by calling this method with the same 'channelId' and 'uid'.
+   *
+   * @param token The token generated on your server for authentication.
+   * @param channelId The channel name. This parameter signifies the channel in which users engage in
+   * real-time audio and video interaction. Under the premise of the same App ID, users who fill in
+   * the same channel ID enter the same channel for audio and video interaction. The string length
+   * must be less than 64 bytes. Supported character scopes are:
+   * - All lowercase English letters: a to z.
+   * - All uppercase English letters: A to Z.
+   * - All numeric characters: 0 to 9.
+   * - The space character.
+   * - Punctuation characters and other symbols, including: "!", "#", "$", "%", "&", "(", ")", "+", "-",
+   * ":", ";", "<", "=", ".", ">", "?", "@", "[", "]", "^", "_", " {", "}", "|", "~", ",".
+   * @param uid The user ID. This parameter is used to identify the user in the channel for real-time
+   * audio and video interaction. You need to set and manage user IDs yourself, and ensure that each
+   * user ID in the same channel is unique. This parameter is a 32-bit unsigned integer. The value
+   * range is 1 to 2<h>32</h>-1. If the user ID is not assigned (or set to 0), the SDK assigns a random user
+   * ID and returns it in the onJoinChannelSuccess callback. Your application must record and maintain
+   * the returned user ID, because the SDK does not do so.
+   *
+   * @return
+   * - 0: Success.
+   * - < 0: Failure.
+   *   - -7: The IRtcEngine object has not been initialized. You need to initialize the IRtcEngine
+   * object before calling this method.
+   *   - -102: The channel name is invalid. You need to pass in a valid channel name in channelId to
+   * preload the channel again.
+   */
+  virtual int preloadChannel(const char* token, const char* channelId, uid_t uid) = 0;
+
+  /**
+   * Preload a channel.
+   *
+   * This method enables users to preload a channel.
+   *
+   * A successful call of this method will reduce the time of joining the same channel.
+   *
+   * @since v4.2.2
+   * @note
+   *  1. The SDK supports preloading up to 20 channels. Once the preloaded channels exceed the limit, the SDK will keep the latest 20 available.
+   *  2. Renew the token of the preloaded channel by calling this method with the same 'channelId' and 'userAccount'.
+   *
+   * @param token The token generated on your server for authentication.
+   * @param channelId The channel name. This parameter signifies the channel in which users engage in
+   * real-time audio and video interaction. Under the premise of the same App ID, users who fill in
+   * the same channel ID enter the same channel for audio and video interaction. The string length
+   * must be less than 64 bytes. Supported character scopes are:
+   * - All lowercase English letters: a to z.
+   * - All uppercase English letters: A to Z.
+   * - All numeric characters: 0 to 9.
+   * - The space character.
+   * - Punctuation characters and other symbols, including: "!", "#", "$", "%", "&", "(", ")", "+", "-",
+   * ":", ";", "<", "=", ".", ">", "?", "@", "[", "]", "^", "_", " {", "}", "|", "~", ",".
+   * @param userAccount The user account. The maximum length of this parameter is 255 bytes. Ensure that you set this parameter and do not set it as null. Supported character scopes are:
+   * - All lowercase English letters: a to z.
+   * - All uppercase English letters: A to Z.
+   * - All numeric characters: 0 to 9.
+   * - The space character.
+   * - Punctuation characters and other symbols, including: "!", "#", "$", "%", "&", "(", ")", "+", "-", ":", ";", "<", "=", ".", ">", "?", "@", "[", "]", "^", "_", " {", "}", "|", "~", ",".
+   *
+   * @return
+   * - 0: Success.
+   * - < 0: Failure.
+   *   - -2: The parameter is invalid. For example, the userAccount parameter is empty.
+   * You need to pass in a valid parameter and preload the channel again.
+   *   - -7: The IRtcEngine object has not been initialized. You need to initialize the IRtcEngine
+   * object before calling this method.
+   *   - -102: The channel name is invalid. You need to pass in a valid channel name in channelId to
+   * preload the channel again.
+   */
+  virtual int preloadChannel(const char* token, const char* channelId, const char* userAccount) = 0;
+
+  /**
+   * Update token of the preloaded channels.
+   *
+   * An easy way to update all preloaded channels' tokens, if all preloaded channels use the same token.
+   *
+   * @since v4.2.2
+   * @note
+   * If preloaded channels use different tokens, we need to call the 'preloadChannel' method with the same 'channelId'
+   * and 'uid' or 'userAccount' to update the corresponding token.
+   *
+   * @param token The token generated on your server for authentication.
+   *
+   * @return
+   * - 0: Success.
+   * - < 0: Failure.
+   *   - -2: The token is invalid. You need to pass in a valid token and update the token again.
+   *   - -7: The IRtcEngine object has not been initialized. You need to initialize the IRtcEngine
+   * object before calling this method.
+   */
+  virtual int updatePreloadChannelToken(const char* token) = 0;
 
   /**
    * Joins a channel.
@@ -4788,7 +4869,7 @@ class IRtcEngine : public agora::base::IEngineBase {
   /**
    * Creates a media recorder object and return its pointer.
    *
-   * @param connection The RtcConnection object. It contains user ID and channel name of user.
+   * @param info The RecorderStreamInfo object. It contains user ID and channel name of user.
    * 
    * @return
    * - The pointer to \ref rtc::IMediaRecorder "IMediaRecorder",
@@ -5868,7 +5949,7 @@ class IRtcEngine : public agora::base::IEngineBase {
    * - 0: Success.
    * - < 0: Failure.
    */
-  virtual int enableDualStreamMode(bool enabled) = 0;
+  virtual int enableDualStreamMode(bool enabled) __deprecated = 0;
 
   /**
    * Enables or disables the dual video stream mode.
@@ -5888,7 +5969,7 @@ class IRtcEngine : public agora::base::IEngineBase {
    * - 0: Success.
    * - < 0: Failure.
    */
-  virtual int enableDualStreamMode(bool enabled, const SimulcastStreamConfig& streamConfig) = 0;
+  virtual int enableDualStreamMode(bool enabled, const SimulcastStreamConfig& streamConfig) __deprecated = 0;
 
 
   /**
@@ -6612,6 +6693,32 @@ class IRtcEngine : public agora::base::IEngineBase {
    */
   virtual int setCameraExposurePosition(float positionXinView, float positionYinView) = 0;
 
+ /**
+  * Returns whether exposure value adjusting is supported by the current device.
+  * Exposure compensation is in auto exposure mode.
+  * @since v4.2.2
+  * @note
+  * This method only supports Android and iOS.
+  * This interface returns valid values only after the device is initialized.
+  *
+  * @return
+  * - true: exposure value adjusting is supported.
+  * - false: exposure value adjusting is not supported or device is not initialized.
+  */
+  virtual bool isCameraExposureSupported() = 0;
+
+  /**
+   * Sets the camera exposure ratio.
+   * @since v4.2.2
+   * @param factor The camera zoom factor. The recommended camera exposure factor ranging from -8.0 to 8.0 for iOS,
+   *        and -20.0 to 20.0 for Android.
+   *
+   * @return
+   * - 0: Success.
+   * - < 0: Failure.
+   */
+  virtual int setCameraExposureFactor(float factor) = 0;
+
 #if defined(__APPLE__)
   /**
    * Checks whether the camera auto exposure function is supported.
@@ -6704,6 +6811,15 @@ class IRtcEngine : public agora::base::IEngineBase {
    other than the speakerphone. For example, the headset or earpiece.
    */
   virtual bool isSpeakerphoneEnabled() = 0;
+
+  /** Select preferred route for android communication mode
+
+   @since v4.2.2
+   @param route The preferred route. For example, when a Bluetooth headset is connected,
+   you can use this API to switch the route to a wired headset.
+   @return meanless, route switch result is pass through CallbackOnRoutingChanged
+   */
+  virtual int setRouteInCommunicationMode(int route) = 0;
 
 #endif  // __ANDROID__ || (__APPLE__ && TARGET_OS_IOS)
 
@@ -8176,6 +8292,16 @@ class IRtcEngine : public agora::base::IEngineBase {
    * Return current NTP(unix timestamp) time in milliseconds.
    */
   virtual uint64_t getNtpWallTimeInMs() = 0;
+
+  /** 
+   * @brief Whether the target feature is available for the device.
+   * @since v4.2.0
+   * @param type The feature type. See FeatureType.
+   * @return
+   * - true: available.
+   * - false: not available.
+   */
+  virtual bool isFeatureAvailableOnDevice(FeatureType type) = 0;
 
 };
 

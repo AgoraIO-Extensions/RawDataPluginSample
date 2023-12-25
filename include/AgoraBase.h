@@ -731,6 +731,10 @@ enum ERROR_CODE_TYPE {
    * 1501: Video Device Module: The camera is not authorized.
    */
   ERR_VDM_CAMERA_NOT_AUTHORIZED = 1501,
+  /**
+   * 2007: Audio Device Module: An error occurs in starting the application loopback.
+   */
+  ERR_ADM_APPLICATION_LOOPBACK = 2007,
 };
 
 enum LICENSE_ERROR_TYPE {
@@ -1118,6 +1122,22 @@ enum SCREEN_CAPTURE_FRAMERATE_CAPABILITY {
   SCREEN_CAPTURE_FRAMERATE_CAPABILITY_15_FPS = 0,
   SCREEN_CAPTURE_FRAMERATE_CAPABILITY_30_FPS = 1,
   SCREEN_CAPTURE_FRAMERATE_CAPABILITY_60_FPS = 2,
+};
+
+/**
+ * Video codec capability levels.
+ */
+enum VIDEO_CODEC_CAPABILITY_LEVEL {
+  /** No specified level */
+  CODEC_CAPABILITY_LEVEL_UNSPECIFIED = -1,
+  /** Only provide basic support for the codec type */
+  CODEC_CAPABILITY_LEVEL_BASIC_SUPPORT = 5,
+  /** Can process 1080p video at a rate of approximately 30 fps. */
+  CODEC_CAPABILITY_LEVEL_1080P30FPS = 10,
+  /** Can process 1080p video at a rate of approximately 60 fps. */
+  CODEC_CAPABILITY_LEVEL_1080P60FPS = 20,
+  /** Can process 4k video at a rate of approximately 30 fps. */
+  CODEC_CAPABILITY_LEVEL_4K60FPS = 30,
 };
 
 /**
@@ -1715,12 +1735,21 @@ enum CODEC_CAP_MASK {
   CODEC_CAP_MASK_SW_ENC = 1 << 3,
 };
 
+struct CodecCapLevels {
+  VIDEO_CODEC_CAPABILITY_LEVEL hwDecodingLevel;
+  VIDEO_CODEC_CAPABILITY_LEVEL swDecodingLevel;
+
+  CodecCapLevels(): hwDecodingLevel(CODEC_CAPABILITY_LEVEL_UNSPECIFIED), swDecodingLevel(CODEC_CAPABILITY_LEVEL_UNSPECIFIED) {}
+};
+
 /** The codec support information. */
 struct CodecCapInfo {
   /** The codec type: #VIDEO_CODEC_TYPE. */
   VIDEO_CODEC_TYPE codecType;
   /** The codec support flag. */
   int codecCapMask;
+  /** The codec capability level, estimated based on the device hardware.*/
+  CodecCapLevels codecLevels;
 };
 
 /**
@@ -2759,6 +2788,22 @@ enum LOCAL_VIDEO_STREAM_ERROR {
   LOCAL_VIDEO_STREAM_ERROR_SCREEN_CAPTURE_FAILURE = 21,
   /** 22: No permision to capture screen. */
   LOCAL_VIDEO_STREAM_ERROR_SCREEN_CAPTURE_NO_PERMISSION = 22,
+  /** 
+   * 23: The screen capture paused.
+   * 
+   * Common scenarios for reporting this error code:
+   * - When the desktop switch to the secure desktop such as UAC dialog or the Winlogon desktop on
+   * Windows platform, the SDK reports this error code.
+   */
+  LOCAL_VIDEO_STREAM_ERROR_SCREEN_CAPTURE_PAUSED = 23,
+  /** 24: The screen capture is resumed. */
+  LOCAL_VIDEO_STREAM_ERROR_SCREEN_CAPTURE_RESUMED = 24,
+  /** 25: (Windows only) The local screen capture window is currently hidden and not visible on the desktop. */
+  LOCAL_VIDEO_STREAM_ERROR_SCREEN_CAPTURE_WINDOW_HIDDEN = 25,
+  /** 26: (Windows only) The local screen capture window is recovered from its hidden state. */
+  LOCAL_VIDEO_STREAM_ERROR_SCREEN_CAPTURE_WINDOW_RECOVER_FROM_HIDDEN = 26,
+  /** 27:(Windows only) The window is recovered from miniminzed */
+  LOCAL_VIDEO_STREAM_ERROR_SCREEN_CAPTURE_WINDOW_RECOVER_FROM_MINIMIZED = 27,
 };
 
 /**
@@ -3752,10 +3797,6 @@ struct LocalTranscoderConfiguration {
 
 enum VIDEO_TRANSCODER_ERROR {
   /**
-   * No error
-   */
-  VT_ERR_OK = 0,
-  /**
    * The video track of the video source is not started.
    */
   VT_ERR_VIDEO_SOURCE_NOT_READY = 1,
@@ -3973,6 +4014,10 @@ enum CONNECTION_CHANGED_REASON_TYPE
    * 21: The connection is failed due to license validation failure.
    */
   CONNECTION_CHANGED_LICENSE_VALIDATION_FAILURE = 21,
+  /**
+   * 22: The connection is failed due to certification verify failure.
+   */
+  CONNECTION_CHANGED_CERTIFICATION_VERYFY_FAILURE = 22,
 };
 
 /**
@@ -4083,6 +4128,10 @@ enum NETWORK_TYPE {
    * 5: The network type is mobile 4G.
    */
   NETWORK_TYPE_MOBILE_4G = 5,
+  /**
+   * 6: The network type is mobile 5G.
+   */
+  NETWORK_TYPE_MOBILE_5G = 6,
 };
 
 /**
@@ -4115,6 +4164,10 @@ struct VideoCanvas {
    * The user id of local video.
    */
   uid_t uid;
+  /**
+   * A RGBA value indicates background color of the render view. Defaults to 0x00000000.
+   */
+  uint32_t backgroundColor;
   /**
    * The video render mode. See \ref agora::media::base::RENDER_MODE_TYPE "RENDER_MODE_TYPE".
    * The default value is RENDER_MODE_HIDDEN.
@@ -4161,16 +4214,19 @@ struct VideoCanvas {
   bool enableAlphaMask;
   
   VideoCanvas()
-    : view(NULL), uid(0), renderMode(media::base::RENDER_MODE_HIDDEN), mirrorMode(VIDEO_MIRROR_MODE_AUTO),
-      setupMode(VIDEO_VIEW_SETUP_REPLACE), sourceType(VIDEO_SOURCE_CAMERA_PRIMARY), mediaPlayerId(-ERR_NOT_READY), cropArea(0, 0, 0, 0), enableAlphaMask(false) {}
-  
+    : view(NULL), uid(0), backgroundColor(0x00000000), renderMode(media::base::RENDER_MODE_HIDDEN), mirrorMode(VIDEO_MIRROR_MODE_AUTO),
+      setupMode(VIDEO_VIEW_SETUP_REPLACE), sourceType(VIDEO_SOURCE_CAMERA_PRIMARY), mediaPlayerId(-ERR_NOT_READY),
+      cropArea(0, 0, 0, 0), enableAlphaMask(false) {}
+
   VideoCanvas(view_t v, media::base::RENDER_MODE_TYPE m, VIDEO_MIRROR_MODE_TYPE mt, uid_t u)
-    : view(v), uid(u), renderMode(m), mirrorMode(mt), setupMode(VIDEO_VIEW_SETUP_REPLACE),
-      sourceType(VIDEO_SOURCE_CAMERA_PRIMARY), mediaPlayerId(-ERR_NOT_READY), cropArea(0, 0, 0, 0), enableAlphaMask(false) {}
-  
+    : view(v), uid(u), backgroundColor(0x00000000), renderMode(m), mirrorMode(mt), setupMode(VIDEO_VIEW_SETUP_REPLACE),
+      sourceType(VIDEO_SOURCE_CAMERA_PRIMARY), mediaPlayerId(-ERR_NOT_READY),
+      cropArea(0, 0, 0, 0), enableAlphaMask(false) {}
+
   VideoCanvas(view_t v, media::base::RENDER_MODE_TYPE m, VIDEO_MIRROR_MODE_TYPE mt, user_id_t)
-    : view(v), uid(0), renderMode(m), mirrorMode(mt), setupMode(VIDEO_VIEW_SETUP_REPLACE),
-      sourceType(VIDEO_SOURCE_CAMERA_PRIMARY), mediaPlayerId(-ERR_NOT_READY), cropArea(0, 0, 0, 0), enableAlphaMask(false) {}
+    : view(v), uid(0), backgroundColor(0x00000000), renderMode(m), mirrorMode(mt), setupMode(VIDEO_VIEW_SETUP_REPLACE),
+      sourceType(VIDEO_SOURCE_CAMERA_PRIMARY), mediaPlayerId(-ERR_NOT_READY),
+      cropArea(0, 0, 0, 0), enableAlphaMask(false) {}
 };
 
 /** Image enhancement options.
@@ -5236,7 +5292,7 @@ struct ChannelMediaRelayConfiguration {
    */
   ChannelMediaInfo *destInfos;
   /** The number of destination channels. The default value is 0, and the value range is from 0 to
-   * 4. Ensure that the value of this parameter corresponds to the number of `ChannelMediaInfo`
+   * 6. Ensure that the value of this parameter corresponds to the number of `ChannelMediaInfo`
    * structs you define in `destInfo`.
    */
   int destCount;
@@ -5839,6 +5895,7 @@ enum CONFIG_FETCH_TYPE {
   CONFIG_FETCH_TYPE_JOIN_CHANNEL = 2,
 };
 
+
 /**
  * media recorder source stream information
  */
@@ -5853,6 +5910,71 @@ struct RecorderStreamInfo {
     uid_t uid;
     RecorderStreamInfo() : channelId(NULL), uid(0) {}
 };
+
+
+/** The local  proxy mode type. */
+enum LOCAL_PROXY_MODE {
+  /** 0: Connect local proxy with high priority, if not connected to local proxy, fallback to sdrtn.
+   */
+  ConnectivityFirst = 0,
+  /** 1: Only connect local proxy
+   */
+  LocalOnly = 1,
+};
+
+struct LogUploadServerInfo {
+  /** Log upload server domain
+   */
+  const char* serverDomain;
+  /** Log upload server path
+   */
+  const char* serverPath;
+  /** Log upload server port
+   */
+  int serverPort;
+  /** Whether to use HTTPS request:
+    - true: Use HTTPS request
+    - fasle: Use HTTP request
+   */
+  bool serverHttps;
+
+  LogUploadServerInfo() : serverDomain(NULL), serverPath(NULL), serverPort(0), serverHttps(true) {}
+
+  LogUploadServerInfo(const char* domain, const char* path, int port, bool https) : serverDomain(domain), serverPath(path), serverPort(port), serverHttps(https) {}
+};
+
+struct AdvancedConfigInfo {
+  /** Log upload server
+   */
+  LogUploadServerInfo logUploadServer;
+};
+
+struct LocalAccessPointConfiguration {
+  /** Local access point IP address list.
+   */
+  const char** ipList;
+  /** The number of local access point IP address.
+   */
+  int ipListSize;
+  /** Local access point domain list.
+   */
+  const char** domainList;
+  /** The number of local access point domain.
+   */
+  int domainListSize;
+  /** Certificate domain name installed on specific local access point. pass "" means using sni domain on specific local access point
+   *  SNI(Server Name Indication) is an extension to the TLS protocol.
+   */
+  const char* verifyDomainName;
+  /** Local proxy connection mode, connectivity first or local only.
+   */
+  LOCAL_PROXY_MODE mode;
+  /** Local proxy connection, advanced Config info.
+   */
+  AdvancedConfigInfo advancedConfig;
+  LocalAccessPointConfiguration() : ipList(NULL), ipListSize(0), domainList(NULL), domainListSize(0), verifyDomainName(NULL), mode(ConnectivityFirst) {}
+};
+
 
 }  // namespace rtc
 
