@@ -39,13 +39,23 @@ bool AudioFrameObserver::onPlaybackAudioFrameBeforeMixing(
 
 bool AudioFrameObserver::onRecordAudioFrame(const char *channelId,
                                             AudioFrame &audioFrame) {
-  auto *buffer = (char *) audioFrame.buffer;
-  for (int i = 0; i < audioFrame.bytesPerSample * audioFrame.channels
-           * audioFrame.samplesPerChannel;
-       i += audioFrame.bytesPerSample) {
-    // set the audio frame to noise, if you set the audio frame to silence, you can remove this if statement
-    if (i % 2 == 0) { buffer[i] = 0; }
+  static std::random_device rd;
+  static std::mt19937 gen(rd());
+  
+  auto *buffer = static_cast<int16_t *>(audioFrame.buffer);
+  int totalSamples = audioFrame.channels * audioFrame.samplesPerChannel;
+  
+  // Generate white noise: fill audio buffer with random values
+  // Noise amplitude can be adjusted via noiseAmplitude (0.0 - 1.0)
+  constexpr float noiseAmplitude = 0.3f;
+  std::uniform_int_distribution<int16_t> dist(
+      static_cast<int16_t>(-32768 * noiseAmplitude),
+      static_cast<int16_t>(32767 * noiseAmplitude));
+  
+  for (int i = 0; i < totalSamples; ++i) {
+    buffer[i] = dist(gen);
   }
+  
   return true;
 }
 
